@@ -4,7 +4,6 @@ WORKDIR /app
 COPY package*.json ./
 RUN corepack enable pnpm
 COPY package.json pnpm-lock.yaml ./
-RUN pnpm approve-builds --all
 RUN pnpm install --frozen-lockfile
 COPY . .
 RUN pnpm run build
