@@ -25,5 +25,12 @@
   "devDependencies": {
     "typescript": "^5.5.3",
     "vue-tsc": "^2.0.26"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "protobufjs",
+      "vue-demi"
+    ]
   }
 }
