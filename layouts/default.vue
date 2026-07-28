@@ -7,13 +7,6 @@
       <nav class="nav">
         <NuxtLink
           class="navLink"
-          :to="`/generative-radio/`"
-          :class="{ selected: sel('generative-radio') }"
-        >
-          GENERATIVE<span class="genSpace" />RADIO</NuxtLink
-        >
-        <NuxtLink
-          class="navLink"
           :to="`/shows/`"
           :class="{ selected: sel('shows') }"
           >SHOWS</NuxtLink
