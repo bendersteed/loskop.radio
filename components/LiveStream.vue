@@ -26,20 +26,21 @@
             <div class="producers">
               {{ nowPlaying?.now_playing?.song?.artist || 'Loskop Radio' }}
             </div>
+            <div class="recent-tracks" v-if="nowPlaying?.song_history?.length">
+              <h3>Recently Played</h3>
+              <ul>
+                <li v-for="(track, index) in nowPlaying.song_history.slice(0, 5)" :key="index">
+                  <span class="artist">{{ track.song.artist }}</span> - 
+                  <span class="title">{{ track.song.title }}</span>
+                </li>
+              </ul>
+            </div>
+
           </div>
         </div>
       </div>
     </div>
     
-    <div class="recent-tracks" v-if="nowPlaying?.song_history?.length">
-      <h3>Recently Played</h3>
-      <ul>
-        <li v-for="(track, index) in nowPlaying.song_history.slice(0, 5)" :key="index">
-          <span class="artist">{{ track.song.artist }}</span> - 
-          <span class="title">{{ track.song.title }}</span>
-        </li>
-      </ul>
-    </div>
   </div>
 </template>
 
