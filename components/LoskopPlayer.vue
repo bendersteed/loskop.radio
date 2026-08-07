@@ -4,9 +4,9 @@
       ref="audio"
       autoplay
       preload="metadata"
-      crossorigin="anonymus"
+      crossorigin="anonymous"
       type="audio/mpeg"
-      :src="show.live ? show.link : assets + show.audio.id"
+      :src="show.live ? (show.audio?.url || show.link) : assets + show.audio.id"
       @waiting="state.loading = true"
       @loadstart="state.loading = true"
       @canplaythrough="state.loading = false"
@@ -147,6 +147,7 @@ onMounted(() => {
       event.preventDefault();
       playPause();
     } else if (
+      !show.value?.live &&
       Array.from(Array(10))
         .map((a, i) => i)
         .includes(Number(event.key))
