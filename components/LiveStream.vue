@@ -1,41 +1,50 @@
 <template>
   <div class="live-stream-wrapper">
-    <div class="artwork">
-      <img
-        :src="currentArtwork"
-        class="image-fit"
-        alt="Live Stream Artwork"
-      />
-    </div>
-    <div class="infoContainer">
-      <div class="playerContainer">
-        <div class="player">
-          <div class="playContainer">
-            <button class="play" @click="playPause(liveShow)">
-              <PlayIcon v-if="!isThisPlaying(liveShow.id)" :size="60"></PlayIcon>
-              <PauseIcon v-else :size="60"></PauseIcon>
-            </button>
-          </div>
-          <div class="info">
-            <h1>
-              {{ nowPlaying?.now_playing?.song?.title || 'Loading Stream...' }}
-            </h1>
-            <div class="producers">
-              {{ nowPlaying?.now_playing?.song?.artist || 'Loskop Radio' }}
+    <div class="stream-main-content">
+      <div class="artwork">
+        <img
+          :src="currentArtwork"
+          class="image-fit"
+          alt="Live Stream Artwork"
+        />
+      </div>
+      <div class="infoContainer">
+        <div class="playerContainer">
+          <div class="player">
+            <div class="playContainer">
+              <button class="play" @click="playPause(liveShow)">
+                <PlayIcon v-if="!isThisPlaying(liveShow.id)" :size="60"></PlayIcon>
+                <PauseIcon v-else :size="60"></PauseIcon>
+              </button>
+            </div>
+            <div class="info">
+              <h1>
+                {{ nowPlaying?.now_playing?.song?.title || 'Loading Stream...' }}
+              </h1>
+              <div class="producers">
+                {{ nowPlaying?.now_playing?.song?.artist || 'Loskop Radio' }}
+              </div>
             </div>
           </div>
         </div>
+        <div class="producers">
+          LIVE NOW!
+          <span class="blink">
+            <div class="dot" />
+          </span>
+        </div>
+        <div class="recent-tracks" v-if="nowPlaying?.song_history?.length">
+          <h3>Recently Played</h3>
+          <ul>
+            <li v-for="(track, index) in nowPlaying.song_history.slice(0, 5)" :key="index">
+              <span class="artist">{{ track.song.artist }}</span> - 
+              <span class="title">{{ track.song.title }}</span>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-    <div class="recent-tracks" v-if="nowPlaying?.song_history?.length">
-      <h3>Recently Played</h3>
-      <ul>
-        <li v-for="(track, index) in nowPlaying.song_history.slice(0, 5)" :key="index">
-          <span class="artist">{{ track.song.artist }}</span> - 
-          <span class="title">{{ track.song.title }}</span>
-        </li>
-      </ul>
-    </div>
+
   </div>
 </template>
 
@@ -109,7 +118,11 @@ onBeforeUnmount(() => {
 .live-stream-wrapper {
   width: 100%;
   margin-bottom: calc(2 * var(--standard-spacing));
-  clear: both;
+}
+
+.stream-main-content {
+  width: 100%;
+  overflow: hidden; /* Contains the floated artwork properly */
 }
 
 .artwork {
@@ -177,9 +190,11 @@ onBeforeUnmount(() => {
 }
 
 .recent-tracks {
-  clear: both;
+  clear: both; /* Forces it to drop below the floated artwork and player section */
+  width: 100%;
   margin-top: calc(2 * var(--standard-spacing));
   padding-top: var(--standard-spacing);
+  border-top: var(--border-width) solid var(--text-color);
 }
 
 .recent-tracks h3 {
@@ -203,8 +218,32 @@ onBeforeUnmount(() => {
   font-weight: bold;
 }
 
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.blink {
+  animation: blink 2s linear infinite both;
+}
+
+.dot {
+  display: inline-block;
+  width: 0.7em;
+  height: 0.7em;
+  background-color: red;
+  border-radius: 50%;
+  margin: auto;
+}
+
 @media screen and (max-width: 650px) {
-  .live-stream-wrapper {
+  .stream-main-content {
     display: flex;
     flex-direction: column;
     align-items: center;
