@@ -29,7 +29,7 @@
     <div class="title">
       <template v-if="show.live">
         <span class="live-track-title">
-          {{ currentSong?.title ? `${currentSong.title}` : show.title }}
+          {{ currentSong?.artist ? `${currentSong.title}` : show.title }}
         </span>
       </template>
       <template v-else>
