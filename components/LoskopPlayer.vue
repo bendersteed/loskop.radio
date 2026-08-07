@@ -216,13 +216,43 @@ const volumeChange = ({ target: { value } }: any) => {
 .meta {
   display: grid;
   grid-template-rows: [border] auto [title] 1fr [details] 1fr;
-  grid-template-columns: [play] 60px [info] auto [progress] 1fr [volume] 140px;
+  grid-template-columns: [play] 60px [info] minmax(0, 1fr) [progress] 2fr [volume] 140px;
   justify-items: flex-start;
   align-items: center;
   column-gap: var(--p-spacing);
   background-color: var(--main-color);
   padding-bottom: var(--p-spacing);
   white-space: nowrap;
+  max-width: 100vw;
+}
+
+.title {
+  grid-area: 2/2/2/2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Adds "..." if the song title gets too long */
+  width: 100%;
+  letter-spacing: 0.03rem;
+  font-weight: 500;
+}
+
+.producers {
+  grid-area: details / info / details / info;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Ensures artist/live text also truncates safely */
+}
+
+.progressBar.live {
+  overflow: hidden;
+  height: 100%;
+  background-image: url("./../assets/generative/vector.svg");
+  background-repeat: repeat-x;
+  background-size: 800px;
+  margin-top: 20px;
+  grid-row: 2 / span 2;
+  grid-column: 3 / span 1;
+  width: 100%; /* Changed from calc(100vw - 390px) so it safely fills its grid cell and shrinks */
 }
 
 hr {
@@ -281,18 +311,6 @@ a {
   font-size: 1.1rem;
 }
 
-.title {
-  grid-area: 2/2/2/2;
-  white-space: nowrap;
-  letter-spacing: 0.03rem;
-  font-weight: 500;
-}
-
-.producers {
-  grid-area: details / info / details / info;
-  width: 100%;
-}
-
 .producers a {
   font-style: italic;
   border-bottom: 1px solid black;
@@ -301,18 +319,6 @@ a {
 .progressBar {
   grid-row: 2 / span 2;
   grid-column: 3 / span 1;
-}
-
-.progressBar.live {
-  overflow: hidden;
-  height: 100%;
-  background-image: url("./../assets/generative/vector.svg");
-  background-repeat: repeat-x;
-  background-size: 800px;
-  margin-top: 20px;
-  grid-row: 2 / span 2;
-  grid-column: 3 / span 1;
-  width: calc(100vw - 390px);
 }
 
 .time {
