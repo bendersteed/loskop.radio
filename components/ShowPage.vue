@@ -2,7 +2,7 @@
   <main>
     <div class="artwork">
       <img
-        :src="imageFallback(assets + show.artwork.id) + imageParams"
+        :src="imageFallback(assets + show.artwork?.id) + imageParams"
         class="image-fit"
       />
     </div>
