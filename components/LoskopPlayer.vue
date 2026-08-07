@@ -42,9 +42,8 @@
       <span v-if="currentSong?.artist">
         by {{`${currentSong?.artist}`}} --
       </span>
-      LIVE NOW!
-      <span class="blink">
-        <div class="dot" />
+      <span v-else class="producers">
+        Loskop Radio
       </span>
     </div>
     <div v-else class="producers">
