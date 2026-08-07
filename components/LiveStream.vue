@@ -190,11 +190,9 @@ onBeforeUnmount(() => {
 }
 
 .recent-tracks {
-  clear: both; /* Forces it to drop below the floated artwork and player section */
   width: 100%;
   margin-top: calc(2 * var(--standard-spacing));
   padding-top: var(--standard-spacing);
-  border-top: var(--border-width) solid var(--text-color);
 }
 
 .recent-tracks h3 {
