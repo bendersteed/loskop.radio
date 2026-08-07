@@ -39,7 +39,10 @@
       </template>
     </div>
     <div v-if="show.live" class="producers">
-      by {{`${currentSong?.artist}`}} -- LIVE NOW!
+      <span v-if="currentSong?.artist">
+        by {{`${currentSong?.artist}`}} --
+      </span>
+      LIVE NOW!
       <span class="blink">
         <div class="dot" />
       </span>

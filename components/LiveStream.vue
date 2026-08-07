@@ -22,7 +22,7 @@
                 {{ nowPlaying?.now_playing?.song?.title || 'Loading Stream...' }}
               </h1>
               <div class="producers">
-                {{ nowPlaying?.now_playing?.song?.artist || 'Loskop Radio' }}
+                by {{ nowPlaying?.now_playing?.song?.artist || 'Loskop Radio' }}
               </div>
             </div>
           </div>
@@ -37,8 +37,8 @@
           <h3>Recently Played</h3>
           <ul>
             <li v-for="(track, index) in nowPlaying.song_history.slice(0, 5)" :key="index">
-              <span class="artist">{{ track.song.artist }}</span> - 
               <span class="title">{{ track.song.title }}</span>
+              <span v-if="track.song.artist"> by {{ track.song.artist}}</span>
             </li>
           </ul>
         </div>
