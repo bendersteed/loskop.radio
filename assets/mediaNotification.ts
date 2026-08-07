@@ -7,13 +7,13 @@ const chromeMetaAdaptor = (show: Show): MediaMetadataInit => ({
   artist: show.producers
     .map(
       (p: NestedProducer): string =>
-        `${p.producers_id.first_name || ""} ${p.producers_id.last_name || ""}`
+        `${p.producers_id.first_name || ""} ${p.producers_id.last_name || ""}`,
     )
     .join(", "),
   album: "Loskop Radio",
   artwork: [
     {
-      src: imageFallback(assets + show?.artwork.id),
+      src: imageFallback(assets + show?.artwork?.id),
       sizes: "512x512",
     },
   ],
