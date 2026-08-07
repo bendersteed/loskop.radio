@@ -17,9 +17,6 @@
             </button>
           </div>
           <div class="info">
-            <div class="dateDuration">
-              <div class="date live-badge">LIVE BROADCAST</div>
-            </div>
             <h1>
               {{ nowPlaying?.now_playing?.song?.title || 'Loading Stream...' }}
             </h1>
@@ -162,19 +159,6 @@ onBeforeUnmount(() => {
   margin-right: var(--standard-spacing);
 }
 
-.dateDuration {
-  display: flex;
-  justify-content: space-between;
-  font-weight: 300;
-  font-size: 13px;
-  letter-spacing: 0.07em;
-}
-
-.live-badge {
-  color: red;
-  font-weight: bold;
-}
-
 .info {
   display: flex;
   justify-content: space-between;
@@ -198,7 +182,6 @@ onBeforeUnmount(() => {
   clear: both;
   margin-top: calc(2 * var(--standard-spacing));
   padding-top: var(--standard-spacing);
-  border-top: var(--border-width) solid var(--text-color);
 }
 
 .recent-tracks h3 {
