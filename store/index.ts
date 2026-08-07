@@ -3,8 +3,8 @@ import type { Show } from "~/schema";
 
 export const usePlayerStore = defineStore("player", () => {
   const show = ref<Show | undefined>();
-
   const isPlaying = ref<boolean>(false);
+  const currentSong = ref<{ title: string; artist: string } | null>(null);
 
   const play = (playState: boolean): void => {
     isPlaying.value = playState;
@@ -21,5 +21,17 @@ export const usePlayerStore = defineStore("player", () => {
     return isPlaying.value ? show.value.id == id : false;
   };
 
-  return { show, isPlaying, play, playPause, isThisPlaying };
+  const setCurrentSong = (song: { title: string; artist: string } | null) => {
+    currentSong.value = song;
+  };
+
+  return {
+    show,
+    isPlaying,
+    currentSong,
+    play,
+    playPause,
+    isThisPlaying,
+    setCurrentSong,
+  };
 });

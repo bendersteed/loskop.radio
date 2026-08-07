@@ -6,14 +6,14 @@
       preload="metadata"
       crossorigin="anonymous"
       type="audio/mpeg"
-      :src="show.live ? (show.audio?.url || show.link) : assets + show.audio.id"
+      :src="audioSource"
       @waiting="state.loading = true"
       @loadstart="state.loading = true"
       @canplaythrough="state.loading = false"
       @play="
         () => {
-          isPlaying || playPause();
-          state.loading = false;
+        isPlaying || playPause();
+        state.loading = false;
         }
       "
       @pause="isPlaying && playPause()"
@@ -27,9 +27,16 @@
       <PauseIcon v-else :size="50"></PauseIcon>
     </button>
     <div class="title">
-      <NuxtLink :to="`/shows/${show.slug}`">
-        {{ show.title }}
-      </NuxtLink>
+      <template v-if="show.live">
+        <span class="live-track-title">
+          {{ currentSong?.artist ? `${currentSong.artist} - ${currentSong.title}` : show.title }}
+        </span>
+      </template>
+      <template v-else>
+        <NuxtLink :to="`/shows/${show.slug}`">
+          {{ show.title }}
+        </NuxtLink>
+      </template>
     </div>
     <div v-if="show.live" class="producers">
       LIVE NOW!
@@ -95,7 +102,7 @@ import { usePlayerStore } from "~/store";
 
 const store = usePlayerStore();
 const { playPause } = store;
-const { show, isPlaying } = storeToRefs(store);
+const { show, isPlaying, currentSong } = storeToRefs(store);
 
 const producers = computed(() =>
   show.value !== undefined
@@ -120,6 +127,14 @@ const state = reactive<State>({
   ms: 0,
   max: 0,
   skipping: false,
+});
+
+const audioSource = computed(() => {
+  if (!show.value) return "";
+  if (show.value.live) {
+    return show.value.audio?.url || (show.value as any).link || "";
+  }
+  return show.value.audio?.id ? assets + show.value.audio.id : "";
 });
 
 const formattedTime = computed(() =>

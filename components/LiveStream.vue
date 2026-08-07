@@ -51,12 +51,10 @@ import PlayIcon from "vue-material-design-icons/Play.vue";
 import type { Show } from "~/schema";
 import { usePlayerStore } from "~/store";
 
-// Configuration for your AzuraCast instance
-// Adjust the station ID (1) and stream URL if necessary.
 const STREAM_URL = "https://loazuracast.stinpriza.eu/listen/radio/radio.mp3"; 
 const DEFAULT_IMAGE = "/loskop_face.jpg"; // Fallback image
+const { playPause, isThisPlaying, setCurrentSong } = usePlayerStore();
 
-const { playPause, isThisPlaying } = usePlayerStore();
 const nowPlaying = ref<any>(null);
 let pollingInterval: ReturnType<typeof setInterval> | null = null;
 
@@ -83,10 +81,18 @@ const currentArtwork = computed(() => {
 
 const fetchNowPlaying = async () => {
   try {
-    // Fetch from your own internal Nuxt route
     const response = await fetch('/api/nowplaying');
     if (response.ok) {
       nowPlaying.value = await response.json();
+      
+      // Push song info directly into the global store
+      const activeSong = nowPlaying.value?.now_playing?.song;
+      if (activeSong) {
+        setCurrentSong({
+          title: activeSong.title,
+          artist: activeSong.artist,
+        });
+      }
     }
   } catch (error) {
     console.error("Failed to fetch from internal API:", error);
