@@ -64,15 +64,15 @@ const liveShow = computed(() => {
     id: "live-stream",
     title: "Live Broadcast",
     live: true,
+    link: STREAM_URL, 
     description: "Live stream from Loskop Radio",
     date: new Date().toISOString(),
     producers: [],
-    audio: {
-      url: STREAM_URL,
-      duration: 0,
+    audio: null, 
+    artwork: {
+      id: "", 
     },
-    // Cast to Show to satisfy your store's TS requirements
-  } as unknown as Show; 
+  } as unknown as Show;
 });
 
 const currentArtwork = computed(() => {

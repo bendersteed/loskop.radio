@@ -131,9 +131,11 @@ const state = reactive<State>({
 
 const audioSource = computed(() => {
   if (!show.value) return "";
+  
   if (show.value.live) {
-    return show.value.audio?.url || (show.value as any).link || "";
+    return show.value.link || "";
   }
+  
   return show.value.audio?.id ? assets + show.value.audio.id : "";
 });
 
