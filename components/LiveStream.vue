@@ -52,7 +52,6 @@ import { usePlayerStore } from "~/store";
 
 // Configuration for your AzuraCast instance
 // Adjust the station ID (1) and stream URL if necessary.
-const AZURACAST_API = "https://loazuracast.stinpriza.eu/api/nowplaying/1";
 const STREAM_URL = "https://loazuracast.stinpriza.eu/listen/radio/radio.mp3"; 
 const DEFAULT_IMAGE = "/loskop_face.jpg"; // Fallback image
 
@@ -83,12 +82,13 @@ const currentArtwork = computed(() => {
 
 const fetchNowPlaying = async () => {
   try {
-    const response = await fetch(AZURACAST_API);
+    // Fetch from your own internal Nuxt route
+    const response = await fetch('/api/nowplaying');
     if (response.ok) {
       nowPlaying.value = await response.json();
     }
   } catch (error) {
-    console.error("Failed to fetch AzuraCast data:", error);
+    console.error("Failed to fetch from internal API:", error);
   }
 };
 
