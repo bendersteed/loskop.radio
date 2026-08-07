@@ -10,6 +10,7 @@
     <article class="content" v-html="pToSpan(home?.description || '')" />
   </main>
   <div class="space" />
+  <LiveStream />
 </template>
 
 <script setup lang="ts">
@@ -17,6 +18,7 @@ import { assets } from "~/assets/constants";
 import { imageFallback, removeFileExtension } from "~/assets/helpers";
 import type { Home } from "~/schema";
 import { homeQuery, homeSchema } from "~/schema";
+import LiveStream from "~/components/LiveStream.vue"; // Ensure correct path
 
 const pToSpan = (html: string): string => {
   return html?.replace(/<\/p>\n<p>/g, "<br/>")?.replace(/(<\/?)p>/g, "$1span>");
