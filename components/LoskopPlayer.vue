@@ -216,7 +216,7 @@ const volumeChange = ({ target: { value } }: any) => {
 .meta {
   display: grid;
   grid-template-rows: [border] auto [title] 1fr [details] 1fr;
-  grid-template-columns: [play] 60px [info] minmax(0, 1fr) [progress] 2fr [volume] 140px;
+  grid-template-columns: [play] 60px [info] 1fr [progress] minmax(0 2fr) [volume] 140px;
   justify-items: flex-start;
   align-items: center;
   column-gap: var(--p-spacing);
