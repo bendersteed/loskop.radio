@@ -51,7 +51,7 @@ import PlayIcon from "vue-material-design-icons/Play.vue";
 import type { Show } from "~/schema";
 import { usePlayerStore } from "~/store";
 
-const STREAM_URL = "https://loazuracast.stinpriza.eu/listen/radio/radio.mp3"; 
+const STREAM_URL = "https://loazuracast.stinpriza.eu/listen/radio.mp3"; 
 const DEFAULT_IMAGE = "/loskop_face.jpg"; // Fallback image
 const { playPause, isThisPlaying, setCurrentSong } = usePlayerStore();
 
