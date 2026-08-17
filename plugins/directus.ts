@@ -1,9 +1,9 @@
 import { createDirectus, graphql } from "@directus/sdk";
 import type { Schema } from "~/schema";
 
-const directus = createDirectus<Schema>(
-  "https://locms.stinpriza.eu/graphql",
-).with(graphql());
+const directus = createDirectus<Schema>("https://locms.stinpriza.eu/").with(
+  graphql(),
+);
 
 export default defineNuxtPlugin(() => {
   return {
