@@ -2,7 +2,7 @@ import { createDirectus, graphql } from "@directus/sdk";
 import type { Schema } from "~/schema";
 
 const directus = createDirectus<Schema>(
-  "https://cms.loskop.radio/graphql"
+  "https://locms.stinpriza.eu/graphql",
 ).with(graphql());
 
 export default defineNuxtPlugin(() => {
