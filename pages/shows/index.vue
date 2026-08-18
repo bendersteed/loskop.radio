@@ -13,14 +13,14 @@ import { homeSchema, showQueries, showsSchema } from "~/schema";
 
 const { $directus } = useNuxtApp();
 const { data } = await useAsyncData("shows", () => {
-  return $directus.query<{ items: { shows: Show[]; home: Home } }>(
+  return $directus.query<{ shows: Show[]; home: Home }>(
     showQueries.shows,
     { live: false }
   );
 });
 
-const shows = showsSchema.parse(data.value?.items?.shows);
-const home = homeSchema.parse(data.value?.items?.home);
+const shows = showsSchema.parse(data.value?.shows);
+const home = homeSchema.parse(data.value?.home);
 
 useHead({
   title: "All shows - Loskop",

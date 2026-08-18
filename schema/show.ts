@@ -40,7 +40,7 @@ const withoutSourceSchema = z
   })
   .extend({
     producers: z.lazy(() =>
-      z.object({ producers_id: baseProducerSchema }).array()
+      z.object({ producers_id: baseProducerSchema }).array(),
     ),
   });
 
@@ -49,10 +49,10 @@ export const baseShowSchema = z.intersection(withoutSourceSchema, sourceSchema);
 export const showSchema = z.intersection(
   withoutSourceSchema.extend({
     producers: z.lazy(() =>
-      z.object({ producers_id: baseProducerSchema }).array()
+      z.object({ producers_id: baseProducerSchema }).array(),
     ),
   }),
-  sourceSchema
+  sourceSchema,
 );
 
 export const showsSchema = showSchema.array();
@@ -66,68 +66,65 @@ export type Show = BaseShow & {
 export const showQueries = {
   show: gql`
     query Show($slug: String) {
-      items {
-        shows(filter: { slug: { _eq: $slug } }) {
+      shows(filter: { slug: { _eq: $slug } }) {
+        id
+        slug
+        title
+        date
+        live
+        link
+        description
+        artwork {
           id
-          slug
-          title
-          date
-          live
-          link
-          description
-          artwork {
+        }
+        audio {
+          id
+          duration
+        }
+        attachment {
+          id
+        }
+        producers {
+          producers_id {
             id
-          }
-          audio {
-            id
-            duration
-          }
-          attachment {
-            id
-          }
-          producers {
-            producers_id {
-              id
-              slug
-              first_name
-              last_name
-            }
+            slug
+            first_name
+            last_name
           }
         }
       }
     }
   `,
+
   shows: gql`
     query Shows($live: Boolean) {
-      items {
-        home {
-          image {
-            filename_disk
-          }
+      home {
+        image {
+          filename_disk
         }
-        shows(sort: "-date", filter: { live: { _eq: $live } }) {
+      }
+      shows(sort: ["-date"], filter: { live: { _eq: $live } }) {
+        id
+        slug
+        title
+        date
+        live
+        link
+        artwork {
           id
-          slug
-          title
-          date
-          live
-          link
-          artwork {
+        }
+        audio {
+          id
+        }
+        attachment {
+          id
+        }
+        producers {
+          producers_id {
             id
-          }
-          audio {
-            id
-          }
-          attachment {
-            id
-          }
-          producers {
-            producers_id {
-              id
-              slug
-              first_name
-              last_name
-            }
+            slug
+            first_name
+            last_name
           }
         }
       }
