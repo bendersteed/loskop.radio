@@ -32,37 +32,35 @@ export type NestedProducer = { producers_id: BaseProducer };
 export const producerQueries = {
   producer: gql`
     query Producer($slug: String) {
-      items {
-        producers(filter: { slug: { _eq: $slug } }) {
+      producers(filter: { slug: { _eq: $slug } }) {
+        id
+        slug
+        first_name
+        last_name
+        description
+        avatar {
           id
-          slug
-          first_name
-          last_name
-          description
-          avatar {
+        }
+        shows {
+          shows_id {
             id
-          }
-          shows {
-            shows_id {
+            slug
+            title
+            date
+            live
+            link
+            artwork {
               id
-              slug
-              title
-              date
-              live
-              link
-              artwork {
+            }
+            audio {
+              id
+            }
+            producers {
+              producers_id {
                 id
-              }
-              audio {
-                id
-              }
-              producers {
-                producers_id {
-                  id
-                  slug
-                  first_name
-                  last_name
-                }
+                slug
+                first_name
+                last_name
               }
             }
           }
@@ -72,11 +70,9 @@ export const producerQueries = {
   `,
   producers: gql`
     query Producers {
-      items {
-        producers {
-          id
-          slug
-        }
+      producers {
+        id
+        slug
       }
     }
   `,

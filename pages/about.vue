@@ -88,11 +88,11 @@ const { mail, paypal, facebook, instagram, mixcloud, developer } = info;
 
 const { $directus } = useNuxtApp();
 const { data } = await useAsyncData("about", () => {
-  return $directus.query<{ items: { about: About; home: Home } }>(aboutQuery);
+  return $directus.query<{ about: About; home: Home }>(aboutQuery);
 });
 
-const about = aboutSchema.parse(data.value?.items?.about);
-const home = homeSchema.parse(data.value?.items?.home);
+const about = aboutSchema.parse(data.value?.about);
+const home = homeSchema.parse(data.value?.home);
 
 useHead({
   title: "About Loskop",

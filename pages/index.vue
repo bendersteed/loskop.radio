@@ -26,10 +26,10 @@ const pToSpan = (html: string): string => {
 
 const { $directus } = useNuxtApp();
 const { data } = await useAsyncData("home", () => {
-  return $directus.query<{ items: { home: Home } }>(homeQuery);
+  return $directus.query<{  home: Home }>(homeQuery);
 });
 
-const home = homeSchema.parse(data.value?.items?.home);
+const home = homeSchema.parse(data.value?.home);
 
 useHead({
   title: "Loskop Radio",

@@ -12,12 +12,12 @@ const route = useRoute();
 
 const { $directus } = useNuxtApp();
 const { data } = await useAsyncData(`show/${route.params.slug}`, () => {
-  return $directus.query<{ items: { shows: Show[] } }>(showQueries.show, {
+  return $directus.query<{  shows: Show[]  }>(showQueries.show, {
     slug: route.params.slug,
   });
 });
 
-const show = showSchema.parse(data.value?.items?.shows?.[0]);
+const show = showSchema.parse(data.value?.shows?.[0]);
 
 throw404(show === undefined);
 

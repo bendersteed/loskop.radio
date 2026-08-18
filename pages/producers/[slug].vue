@@ -35,7 +35,7 @@ const route = useRoute();
 const { $directus } = useNuxtApp();
 
 const { data } = await useAsyncData(`producer/${route.params.slug}`, () => {
-  return $directus.query<{ items: { producers: Producer[] } }>(
+  return $directus.query<{  producers: Producer[] }>(
     producerQueries.producer,
     {
       slug: route.params.slug,
@@ -43,7 +43,7 @@ const { data } = await useAsyncData(`producer/${route.params.slug}`, () => {
   );
 });
 
-const producer = producerSchema.parse(data.value?.items?.producers?.[0]);
+const producer = producerSchema.parse(data.value?.producers?.[0]);
 
 useHead({
   title: `${producer?.first_name || ""} ${producer?.last_name || ""} - Loskop`,

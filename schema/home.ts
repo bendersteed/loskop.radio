@@ -14,13 +14,11 @@ export type Home = z.infer<typeof homeSchema>;
 
 export const homeQuery = gql`
   query Home {
-    items {
-      home {
-        image {
-          filename_disk
-        }
-        description
+    home {
+      image {
+        filename_disk
       }
+      description
     }
   }
 `;
