@@ -16,14 +16,14 @@
             </button>
           </div>
           <div class="info">
-            <div class="dateDuration">
-              <div class="date" v-if="!show.live">
-                {{ formatDate(show.date) }}
-              </div>
-              <div v-if="!show.live" class="duration">
-                {{ formatedDuration }}
-              </div>
-            </div>
+              <!-- <div class="dateDuration">
+                   <div class="date" v-if="!show.live">
+                   {{ formatDate(show.date) }}
+                   </div>
+                   <div v-if="!show.live" class="duration">
+                   {{ formatedDuration }}
+                   </div>
+                   </div> -->
             <h1>
               {{ show.title }}
             </h1>
