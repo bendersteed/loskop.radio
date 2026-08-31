@@ -27,7 +27,7 @@
       <PauseIcon v-else :size="50"></PauseIcon>
     </button>
     <div class="title"
-         :class="{ title-live: show.live }">
+         :class="{ 'title-live': show.live }">
       <template v-if="show.live">
           <span class="live-track-title">
               ON AIR
