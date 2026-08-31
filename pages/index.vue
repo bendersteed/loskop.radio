@@ -62,7 +62,7 @@ useHead({
 main {
     max-width: 1000px;
     display: flex;
-    padding: 4em;
+    padding-y: 4em;
  }
 
 img {

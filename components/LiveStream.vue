@@ -197,20 +197,19 @@
 
  .recent-tracks h3 {
      font-size: 1.2rem;
-     margin-bottom: 10px;
+     margin-bottom: 1rem;
  }
 
  .history {
-     list-style-type: disc; /* Standard filled round bullet (default) */
-     padding-left: 20px;    /* Bullets need indentation to remain visible */
-     list-style: none;
+     list-style-type: disc;
+     list-style-position: inside;
      padding: 0;
      margin: 0;
  }
 
  .recent-tracks li {
      font-size: 0.9rem;
-     margin-bottom: 8px;
+     margin-bottom: 1rem;
      letter-spacing: 0.04em;
  }
 
