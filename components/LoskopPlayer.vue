@@ -311,7 +311,7 @@ const volumeChange = ({ target: { value } }: any) => {
 
  .title-live {
      grid-row: 2 / span 2;
-     font-size: 1.4em
+     font-size: 1.4em;
      align-self: center;
  }
 
