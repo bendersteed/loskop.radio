@@ -47,9 +47,6 @@
           <a :href="instagram" target="_blank" class="small button facebook"
             >i</a
           >
-          <a :href="mixcloud" target="_blank" class="button mixcloud"
-            >Mixcloud</a
-          >
         </div>
         <div class="credits">
           Developed by
@@ -143,7 +140,7 @@ useHead({
 
 .social {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   width: 80%;
 }
 
