@@ -41,15 +41,7 @@
         </NuxtLink>
       </template>
     </div>
-    <div v-if="show.live" class="producers">
-      <span v-if="currentSong?.artist">
-        by {{`${currentSong?.artist}`}} --
-      </span>
-      <span v-else class="producers">
-        Loskop Radio
-      </span>
-    </div>
-    <div v-else class="producers">
+    <div v-if="!show.live" class="producers">
       by
       <NuxtLink
         v-for="producer in producers"
