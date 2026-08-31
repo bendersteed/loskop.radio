@@ -8,7 +8,7 @@
           <NuxtLink
               class="navLink"
               :to="`/`"
-              :class="{ selected: sel('shows') }"
+              :class="{ selected: sel('/') }"
           >ON AIR</NuxtLink
                  >
           <NuxtLink
