@@ -1,16 +1,8 @@
 <template>
-  <main>
-    <img
-      :src="
-        imageFallback(
-          assets + removeFileExtension(home?.image?.filename_disk || '')
-        )
-      "
-    />
-    <article class="content" v-html="pToSpan(home?.description || '')" />
-  </main>
-  <div class="space" />
-  <LiveStream />
+    <main>
+        <LiveStream />
+    </main>
+    <div class="space" />
 </template>
 
 <script setup lang="ts">
