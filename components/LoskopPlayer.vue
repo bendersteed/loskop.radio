@@ -28,8 +28,11 @@
     </button>
     <div class="title">
       <template v-if="show.live">
-        <span class="live-track-title">
-          {{ currentSong?.title ? `${currentSong.title}` : show.title }}
+          <span class="live-track-title">
+              ON AIR
+              <span class="blink">
+                  <div class="dot" />
+              </span>
         </span>
       </template>
       <template v-else>

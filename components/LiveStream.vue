@@ -18,27 +18,27 @@
               </button>
             </div>
             <div class="info">
-              <h1>
-                {{ nowPlaying?.now_playing?.song?.title || 'Loading Stream...' }}
-              </h1>
-              <div class="producers">
-                by {{ nowPlaying?.now_playing?.song?.artist || 'Loskop Radio' }}
-              </div>
+                <h1>
+                    LIVE NOW!
+                    <span class="blink">
+                        <div class="dot" />
+                    </span>
+                </h1>
+                <h2>
+                    {{ nowPlaying?.now_playing?.song?.title || 'Loading Stream...' }}
+                    -
+                    {{ nowPlaying?.now_playing?.song?.artist || 'Loskop Radio' }}
+                </h2>
             </div>
           </div>
-        </div>
-        <div class="producers">
-          LIVE NOW!
-          <span class="blink">
-            <div class="dot" />
-          </span>
         </div>
         <div class="recent-tracks" v-if="nowPlaying?.song_history?.length">
           <h3>Recently Played</h3>
           <ul>
             <li v-for="(track, index) in nowPlaying.song_history.slice(0, 5)" :key="index">
-              <span class="title">{{ track.song.title }}</span>
-              <span v-if="track.song.artist"> by {{ track.song.artist}}</span>
+                <span class="title">{{ track.song.title }}</span>
+                -
+                <span v-if="track.song.artist"> {{ track.song.artist}}</span>
             </li>
           </ul>
         </div>
