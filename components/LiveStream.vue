@@ -18,17 +18,17 @@
               </button>
             </div>
             <div class="info">
-                <h1>
+                <div class="on-air">
                     ON AIR
                     <span class="blink">
                         <div class="dot" />
                     </span>
-                </h1>
-                <h2 class="live-title">
+                </div>
+                <h1 class="live-title">
                     {{ nowPlaying?.now_playing?.song?.title || 'Loading Stream...' }}
                     -
                     {{ nowPlaying?.now_playing?.song?.artist || 'Loskop Radio' }}
-                </h2>
+                </h1>
             </div>
           </div>
         </div>
@@ -175,6 +175,11 @@
      justify-content: space-between;
      flex-direction: column;
      flex: 1;
+ }
+
+ .info .on-air {
+     font-size: 1.4em;
+     font-weigh: 800;
  }
 
  .info h1 {
