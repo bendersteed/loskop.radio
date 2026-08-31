@@ -19,12 +19,12 @@
             </div>
             <div class="info">
                 <h1>
-                    LIVE NOW!
+                    ON AIR
                     <span class="blink">
                         <div class="dot" />
                     </span>
                 </h1>
-                <h2>
+                <h2 class="live-title">
                     {{ nowPlaying?.now_playing?.song?.title || 'Loading Stream...' }}
                     -
                     {{ nowPlaying?.now_playing?.song?.artist || 'Loskop Radio' }}
@@ -178,15 +178,19 @@
  }
 
  .info h1 {
-     font-size: 1.5rem;
+     font-size: 1.2rem;
+     font-weight: 600;
+     letter-spacing: 0;
+     text-wrap: auto;
+     text-wrap-style: pretty;
      margin: 5px 0;
-     line-height: 1.1;
+     line-height: 1.5;
  }
 
  .producers {
-     font-size: 15px;
+     font-size: 1rem;
      font-weight: 300;
-     letter-spacing: 0.07em;
+     letter-spacing: 0.05em;
  }
 
  .recent-tracks {

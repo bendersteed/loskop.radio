@@ -93,123 +93,133 @@ const formatDate = (string: string): string =>
 </script>
 
 <style scoped>
-main {
-  width: 100%;
-  max-width: 1000px;
-}
+ main {
+     width: 100%;
+     max-width: 1000px;
+ }
 
-li {
-  list-style: square;
-}
+ li {
+     list-style: square;
+ }
 
-.attachment {
-  display: flex;
-  align-items: center;
-  font-weight: bolder;
-}
+ .attachment {
+     display: flex;
+     align-items: center;
+     font-weight: bolder;
+ }
 
-.artwork {
-  aspect-ratio: 1/1;
-  overflow: hidden;
-  width: 50%;
-  float: left;
-  border: var(--border-width) solid var(--text-color);
-  margin-right: calc(2 * var(--standard-spacing));
-  margin-bottom: calc(2 * var(--standard-spacing));
-}
+ .artwork {
+     aspect-ratio: 1/1;
+     overflow: hidden;
+     width: 50%;
+     float: left;
+     border: var(--border-width) solid var(--text-color);
+     margin-right: calc(2 * var(--standard-spacing));
+     margin-bottom: calc(2 * var(--standard-spacing));
+ }
 
-.playerContainer {
-  display: flex;
-  margin-bottom: calc(var(--standard-spacing) * 3);
-}
+ .playerContainer {
+     display: flex;
+     margin-bottom: calc(var(--standard-spacing) * 3);
+ }
 
-.player {
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-}
+ .player {
+     width: 100%;
+     display: flex;
+     align-items: flex-start;
+ }
 
-.play {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  background-color: var(--main-color);
-}
+ .play {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     width: 100%;
+     height: 100%;
+     background-color: var(--main-color);
+ }
 
-.playContainer {
-  aspect-ratio: 1/1;
-  width: 70px;
-  border: var(--border-width) solid var(--text-color);
-  margin-right: var(--standard-spacing);
-}
+ .playContainer {
+     aspect-ratio: 1/1;
+     width: 70px;
+     border: var(--border-width) solid var(--text-color);
+     margin-right: var(--standard-spacing);
+ }
 
-.play > * {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+ .play > * {
+     width: 100%;
+     height: 100%;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
 
-.dateDuration {
-  display: flex;
-  justify-content: space-between;
-  font-weight: 300;
-  font-size: 13px;
-  letter-spacing: 0.07em;
-}
+ .dateDuration {
+     display: flex;
+     justify-content: space-between;
+     font-weight: 300;
+     font-size: 13px;
+     letter-spacing: 0.07em;
+ }
 
-.duration {
-  display: none;
-}
+ .duration {
+     display: none;
+ }
 
-.info {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  flex: 1;
-  width: 50%;
-}
+ .info h1 {
+     font-size: 1.2rem;
+     font-weight: 600;
+     letter-spacing: 0;
+     text-wrap: auto;
+     text-wrap-style: pretty;
+     margin: 5px 0;
+     line-height: 1.5;
+ }
 
-.producers {
-  font-size: 15px;
-  font-weight: 300;
-  letter-spacing: 0.07em;
-}
+ .info {
+     display: flex;
+     justify-content: space-between;
+     flex-direction: column;
+     flex: 1;
+     width: 50%;
+ }
 
-.producers a {
-  font-style: italic;
-  color: var(--text-color);
-  user-select: auto;
-}
+ .producers {
+     font-size: 1rem;
+     font-weight: 300;
+     letter-spacing: 0.05em;
+ }
 
-.description {
-  font-size: 1rem;
-  line-height: 23px;
-  letter-spacing: 0.04em;
-}
+ .producers a {
+     font-style: italic;
+     color: var(--text-color);
+     user-select: auto;
+ }
 
-@media screen and (max-width: 650px) {
-  main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+ .description {
+     font-size: 1rem;
+     line-height: 1.5rem;
+     letter-spacing: 0;
+ }
 
-  .artwork {
-    width: 100%;
-    max-width: 350px;
-    margin: var(--standard-spacing) 0;
-  }
+ @media screen and (max-width: 650px) {
+     main {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+     }
 
-  .infoContainer {
-    width: 100%;
-  }
+     .artwork {
+         width: 100%;
+         max-width: 350px;
+         margin: var(--standard-spacing) 0;
+     }
 
-  .playerContainer {
-    margin-bottom: var(--standard-spacing);
-  }
-}
+     .infoContainer {
+         width: 100%;
+     }
+
+     .playerContainer {
+         margin-bottom: var(--standard-spacing);
+     }
+ }
 </style>
