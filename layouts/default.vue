@@ -5,18 +5,24 @@
         <img class="title" src="~/assets/title.svg" alt="" />
       </NuxtLink>
       <nav class="nav">
-        <NuxtLink
-          class="navLink"
-          :to="`/shows/`"
-          :class="{ selected: sel('shows') }"
+          <NuxtLink
+              class="navLink"
+              :to="`/`"
+              :class="{ selected: sel('shows') }"
+          >ON AIR</NuxtLink
+                 >
+          <NuxtLink
+              class="navLink"
+              :to="`/shows/`"
+              :class="{ selected: sel('shows') }"
           >SHOWS</NuxtLink
-        >
-        <NuxtLink
-          class="navLink"
-          :to="`/about/`"
-          :class="{ selected: sel('about') }"
+                >
+          <NuxtLink
+              class="navLink"
+              :to="`/about/`"
+              :class="{ selected: sel('about') }"
           >ABOUT</NuxtLink
-        >
+                >
       </nav>
     </header>
     <div class="layout">
