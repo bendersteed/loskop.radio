@@ -60,9 +60,10 @@ useHead({
 
 <style scoped>
 main {
-  max-width: 1000px;
-  display: flex;
-}
+    max-width: 1000px;
+    display: flex;
+    padding: 4em;
+ }
 
 img {
   width: 40vh;

@@ -26,7 +26,8 @@
       <PlayIcon v-else-if="!isPlaying" :size="50"></PlayIcon>
       <PauseIcon v-else :size="50"></PauseIcon>
     </button>
-    <div class="title">
+    <div class="title"
+         :class="{ title-live: show.live }">
       <template v-if="show.live">
           <span class="live-track-title">
               ON AIR
@@ -186,274 +187,280 @@ const volumeChange = ({ target: { value } }: any) => {
 </script>
 
 <style scoped>
-@keyframes blink {
-  0%,
-  100% {
-    opacity: 0;
-  }
+ @keyframes blink {
+     0%,
+     100% {
+         opacity: 0;
+     }
 
-  50% {
-    opacity: 1;
-  }
-}
+     50% {
+         opacity: 1;
+     }
+ }
 
-.blink {
-  animation: blink 2s linear infinite both;
-}
+ .blink {
+     animation: blink 2s linear infinite both;
+ }
 
-.dot {
-  display: inline-block;
-  width: 0.7em;
-  height: 0.7em;
-  background-color: red;
-  border-radius: 50%;
-  margin: auto;
-}
+ .dot {
+     display: inline-block;
+     width: 0.7em;
+     height: 0.7em;
+     background-color: red;
+     border-radius: 50%;
+     margin: auto;
+ }
 
-.meta {
-  display: grid;
-  grid-template-rows: [border] auto [title] 1fr [details] 1fr;
-  grid-template-columns: [play] 60px [info] minmax(0, 1fr) [progress] 2fr [volume] 140px;
-  justify-items: flex-start;
-  align-items: center;
-  column-gap: var(--p-spacing);
-  background-color: var(--main-color);
-  padding-bottom: var(--p-spacing);
-  white-space: nowrap;
-  max-width: 100vw;
-}
+ .meta {
+     display: grid;
+     grid-template-rows: [border] auto [title] 1fr [details] 1fr;
+     grid-template-columns: [play] 60px [info] max-content [progress] 1fr [volume] 140px;
+     justify-items: flex-start;
+     align-items: center;
+     column-gap: var(--p-spacing);
+     background-color: var(--main-color);
+     padding-bottom: var(--p-spacing);
+     white-space: nowrap;
+     max-width: 100vw;
+ }
 
-.title {
-  grid-area: 2/2/2/2;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis; /* Adds "..." if the song title gets too long */
-  width: 100%;
-  letter-spacing: 0.03rem;
-  font-weight: 500;
-}
+ .title {
+     grid-area: 2/2/2/2;
+     white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis; /* Adds "..." if the song title gets too long */
+     width: 100%;
+     letter-spacing: 0.03rem;
+     font-weight: 500;
+ }
 
-.producers {
-  grid-area: details / info / details / info;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis; /* Ensures artist/live text also truncates safely */
-}
+ .producers {
+     grid-area: details / info / details / info;
+     width: 100%;
+     overflow: hidden;
+     text-overflow: ellipsis; /* Ensures artist/live text also truncates safely */
+ }
 
-.progressBar.live {
-  overflow: hidden;
-  height: 100%;
-  background-image: url("./../assets/generative/vector.svg");
-  background-repeat: repeat-x;
-  background-size: 800px;
-  margin-top: 20px;
-  grid-row: 2 / span 2;
-  grid-column: 3 / span 1;
-  width: 100%; /* Changed from calc(100vw - 390px) so it safely fills its grid cell and shrinks */
-}
+ .progressBar.live {
+     overflow: hidden;
+     height: 100%;
+     background-image: url("./../assets/generative/vector.svg");
+     background-repeat: repeat-x;
+     background-size: 800px;
+     margin-top: 20px;
+     grid-row: 2 / span 2;
+     grid-column: 3 / span 1;
+     width: 100%; /* Changed from calc(100vw - 390px) so it safely fills its grid cell and shrinks */
+ }
 
-hr {
-  border-top: var(--p-line-width) solid var(--text-color);
-  grid-row: 1 / span 1;
-  grid-column: 1 / span 4;
-  width: 100%;
-  padding-bottom: var(--p-spacing);
-}
+ hr {
+     border-top: var(--p-line-width) solid var(--text-color);
+     grid-row: 1 / span 1;
+     grid-column: 1 / span 4;
+     width: 100%;
+     padding-bottom: var(--p-spacing);
+ }
 
-.playPause {
-  grid-row: 2 / span 2;
-  grid-column: 1 / span 1;
-  justify-self: center;
+ .playPause {
+     grid-row: 2 / span 2;
+     grid-column: 1 / span 1;
+     justify-self: center;
 
-  /* border: solid red 1px; */
-  opacity: 1;
-  height: 55px;
-  width: 55px;
+     /* border: solid red 1px; */
+     opacity: 1;
+     height: 55px;
+     width: 55px;
 
-  /* border-radius: 50%; */
-  outline: none;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-}
+     /* border-radius: 50%; */
+     outline: none;
+     overflow: hidden;
+     display: flex;
+     justify-content: center;
+ }
 
-.loading {
-  display: block;
-  border-style: dashed;
-  border-width: var(--standard-spacing);
-  border-color: black;
-  border-radius: 50%;
-  animation: rot 10s linear 0s infinite normal none;
-  pointer-events: none;
-  width: 100%;
-  height: 100%;
-}
+ .loading {
+     display: block;
+     border-style: dashed;
+     border-width: var(--standard-spacing);
+     border-color: black;
+     border-radius: 50%;
+     animation: rot 10s linear 0s infinite normal none;
+     pointer-events: none;
+     width: 100%;
+     height: 100%;
+ }
 
-@keyframes rot {
-  from {
-    transform: rotate(0deg);
-  }
+ @keyframes rot {
+     from {
+         transform: rotate(0deg);
+     }
 
-  to {
-    transform: rotate(360deg);
-  }
-}
+     to {
+         transform: rotate(360deg);
+     }
+ }
 
-a {
-  color: var(--text-color);
-  text-decoration: none;
-}
+ a {
+     color: var(--text-color);
+     text-decoration: none;
+ }
 
-.title a {
-  font-size: 1.1rem;
-}
+ .title a {
+     font-size: 1.1rem;
+ }
 
-.producers a {
-  font-style: italic;
-  border-bottom: 1px solid black;
-}
+ .title-live {
+     grid-row: 2 / span 2;
+     font-size: 1.4em
+     align-self: center;
+ }
 
-.progressBar {
-  grid-row: 2 / span 2;
-  grid-column: 3 / span 1;
-}
+ .producers a {
+     font-style: italic;
+     border-bottom: 1px solid black;
+ }
 
-.time {
-  grid-row: 3 / span 1;
-  grid-column: 3 / span 1;
-  text-align: right;
-  justify-self: flex-end;
-  font-size: 0.8rem;
-  font-weight: 300;
-  letter-spacing: 0.07em;
-}
+ .progressBar {
+     grid-row: 2 / span 2;
+     grid-column: 3 / span 1;
+ }
 
-.time .current {
-  text-align: right;
-  width: 4ch;
-  display: inline;
-  margin: 0;
-}
+ .time {
+     grid-row: 3 / span 1;
+     grid-column: 3 / span 1;
+     text-align: right;
+     justify-self: flex-end;
+     font-size: 0.8rem;
+     font-weight: 300;
+     letter-spacing: 0.07em;
+ }
 
-.volume {
-  grid-row: 2 / span 2;
-  grid-column: 4 / span 1;
-  width: 120px;
-  display: flex;
-  justify-self: center;
-  background-color: var(--bg-color);
-  height: 100%;
-}
+ .time .current {
+     text-align: right;
+     width: 4ch;
+     display: inline;
+     margin: 0;
+ }
 
-.speaker {
-  min-width: 40px;
-  display: inline-block;
-  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20width%3D%2224%22%3E%3Cpath%20d%3D%22M0%200h24v24H0z%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M18.5%2012c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73%202.5-2.25%202.5-4.02zM5%209v6h4l5%205V4L9%209H5z%22%2F%3E%3C%2Fsvg%3E");
-  background-repeat: no-repeat;
-  background-size: 80%;
-  background-position: center;
-  background-color: var(--main-color);
-}
+ .volume {
+     grid-row: 2 / span 2;
+     grid-column: 4 / span 1;
+     width: 120px;
+     display: flex;
+     justify-self: center;
+     background-color: var(--bg-color);
+     height: 100%;
+ }
 
-input[type="range"] {
-  background-color: var(--main-color);
-  -webkit-appearance: none;
-  width: 100%;
-  padding: var(--p-spacing) 0;
-  cursor: pointer;
-}
+ .speaker {
+     min-width: 40px;
+     display: inline-block;
+     background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20width%3D%2224%22%3E%3Cpath%20d%3D%22M0%200h24v24H0z%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M18.5%2012c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73%202.5-2.25%202.5-4.02zM5%209v6h4l5%205V4L9%209H5z%22%2F%3E%3C%2Fsvg%3E");
+     background-repeat: no-repeat;
+     background-size: 80%;
+     background-position: center;
+     background-color: var(--main-color);
+ }
 
-/* bar */
-input[type="range"]::-webkit-slider-runnable-track {
-  width: 100%;
-  height: var(--p-line-width);
-  background: var(--text-color);
-}
+ input[type="range"] {
+     background-color: var(--main-color);
+     -webkit-appearance: none;
+     width: 100%;
+     padding: var(--p-spacing) 0;
+     cursor: pointer;
+ }
 
-input[type="range"]::-moz-range-track {
-  width: 100%;
-  height: var(--p-line-width);
-  background: var(--text-color);
-}
+ /* bar */
+ input[type="range"]::-webkit-slider-runnable-track {
+     width: 100%;
+     height: var(--p-line-width);
+     background: var(--text-color);
+ }
 
-input[type="range"]::-ms-track {
-  width: 100%;
-  height: var(--p-line-width);
-  background: var(--text-color);
-  border-color: transparent;
-  color: transparent;
-}
+ input[type="range"]::-moz-range-track {
+     width: 100%;
+     height: var(--p-line-width);
+     background: var(--text-color);
+ }
 
-/* thumb */
-input[type="range"]::-webkit-slider-thumb {
-  height: var(--p-thumb-size);
-  width: var(--p-thumb-size);
-  background: var(--text-color);
-  -webkit-appearance: none;
-  margin-top: calc(-1 * var(--p-thumb-size) * 0.5 + var(--p-border-width));
-  border-radius: 50%;
-  border: var(--main-color) var(--p-border-width) solid;
-}
+ input[type="range"]::-ms-track {
+     width: 100%;
+     height: var(--p-line-width);
+     background: var(--text-color);
+     border-color: transparent;
+     color: transparent;
+ }
 
-input[type="range"]::-moz-range-thumb {
-  height: var(--p-thumb-size);
-  width: var(--p-thumb-size);
-  background: var(--text-color);
-  border-radius: 50%;
-  border: var(--main-color) var(--p-border-width) solid;
-}
+ /* thumb */
+ input[type="range"]::-webkit-slider-thumb {
+     height: var(--p-thumb-size);
+     width: var(--p-thumb-size);
+     background: var(--text-color);
+     -webkit-appearance: none;
+     margin-top: calc(-1 * var(--p-thumb-size) * 0.5 + var(--p-border-width));
+     border-radius: 50%;
+     border: var(--main-color) var(--p-border-width) solid;
+ }
 
-input[type="range"]::-ms-thumb {
-  height: var(--p-thumb-size);
-  width: var(--p-thumb-size);
-  background: var(--text-color);
-  border-radius: 50%;
-  border: var(--main-color) var(--p-border-width) solid;
-}
+ input[type="range"]::-moz-range-thumb {
+     height: var(--p-thumb-size);
+     width: var(--p-thumb-size);
+     background: var(--text-color);
+     border-radius: 50%;
+     border: var(--main-color) var(--p-border-width) solid;
+ }
 
-/* .volume input[type="range"] {
-} */
+ input[type="range"]::-ms-thumb {
+     height: var(--p-thumb-size);
+     width: var(--p-thumb-size);
+     background: var(--text-color);
+     border-radius: 50%;
+     border: var(--main-color) var(--p-border-width) solid;
+ }
 
-@media screen and (max-width: 650px) {
-  .progressBar {
-    grid-row: 1 / span 1;
-    grid-column: 1 / span 4;
-  }
+ /* .volume input[type="range"] {
+    } */
 
-  hr:not(.live) {
-    display: none;
-  }
+ @media screen and (max-width: 650px) {
+     .progressBar {
+         grid-row: 1 / span 1;
+         grid-column: 1 / span 4;
+     }
 
-  .title {
-    letter-spacing: 0.1vw;
-    grid-column: 2 / span 2;
-    justify-self: center;
-  }
+     hr:not(.live) {
+         display: none;
+     }
 
-  .volume {
-    display: none;
-  }
+     .title {
+         letter-spacing: 0.1vw;
+         grid-column: 2 / span 2;
+         justify-self: center;
+     }
 
-  .meta {
-    grid-template-columns: [play] 60px [info] auto [progress] 1fr;
-  }
+     .volume {
+         display: none;
+     }
 
-  .progressBar.live {
-    display: none;
-  }
-}
+     .meta {
+         grid-template-columns: [play] 60px [info] auto [progress] 1fr;
+     }
 
-@media (hover: none) {
-  .volume {
-    display: none;
-  }
+     .progressBar.live {
+         display: none;
+     }
+ }
 
-  .meta {
-    grid-template-columns: [play] 60px [info] auto [progress] 1fr;
-  }
-}
+ @media (hover: none) {
+     .volume {
+         display: none;
+     }
 
-/* @media screen and (max-width: 650px) {
+     .meta {
+         grid-template-columns: [play] 60px [info] auto [progress] 1fr;
+     }
+ }
 
-} */
+ /* @media screen and (max-width: 650px) {
+
+    } */
 </style>

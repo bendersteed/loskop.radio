@@ -200,7 +200,7 @@
      margin-bottom: 10px;
  }
 
- .recent-tracks ul {
+ .history {
      list-style-type: disc; /* Standard filled round bullet (default) */
      padding-left: 20px;    /* Bullets need indentation to remain visible */
      list-style: none;
