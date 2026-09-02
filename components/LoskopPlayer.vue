@@ -1,25 +1,26 @@
 <template>
-  <div class="meta user-select-none" v-if="show !== undefined">
-    <audio
-      ref="audio"
-      autoplay
-      preload="metadata"
-      crossorigin="anonymous"
-      type="audio/mpeg"
-      :src="audioSource"
-      @waiting="state.loading = true"
-      @loadstart="state.loading = true"
-      @canplaythrough="state.loading = false"
-      @play="
-        () => {
-        isPlaying || playPause();
-        state.loading = false;
-        }
-      "
-      @pause="isPlaying && playPause()"
-      @timeupdate="if (!state.skipping && audio) state.ms = audio?.currentTime;"
-      @loadedmetadata="if (audio?.duration) state.max = audio?.duration;"
-    />
+    <div class="meta user-select-none" v-if="show !== undefined">
+        <audio
+            ref="audio"
+            autoplay
+            preload="metadata"
+            crossorigin="anonymous"
+            type="audio/mpeg"
+            :src="audioSource"
+            @waiting="state.loading = true"
+            @loadstart="state.loading = true"
+            @canplaythrough="state.loading = false"
+            @play="
+            () => {
+                isPlaying || playPause();
+                state.loading = false;
+            }
+            "
+            @pause="isPlaying && playPause()"
+            @timeupdate="if (!state.skipping && audio && !show?.live) state.ms = audio.currentTime;"
+            @loadedmetadata="if (audio?.duration && !show?.live) state.max = audio.duration;"
+            @error="handleStreamError"
+        />
     <hr :class="{ live: show.live }" />
     <button class="playPause" @click="playPause()">
       <div v-if="state.loading" class="loading" />
@@ -73,117 +74,164 @@
       >/{{ length }}
     </div>
     <div class="volume">
-      <div class="speaker" />
-      <input
-        type="range"
-        value="1"
-        min="0"
-        max="1"
-        step="0.05"
-        @input="volumeChange"
-      />
+        <div class="speaker" />
+        <input
+            type="range"
+            value="1"
+            min="0"
+            max="1"
+            step="0.05"
+            @input="volumeChange"
+        />
     </div>
-  </div>
+    </div>
 </template>
 
 <script setup lang="ts">
-import { duration } from "duration-pretty";
-import { storeToRefs } from "pinia";
-import PauseIcon from "vue-material-design-icons/Pause.vue";
-import PlayIcon from "vue-material-design-icons/Play.vue";
-import { assets } from "~/assets/constants";
-import mediaNotification, {
-  chromeMetaAdaptor,
-} from "~/assets/mediaNotification";
-import type { BaseProducer, NestedProducer } from "~/schema";
-import { usePlayerStore } from "~/store";
+ import { duration } from "duration-pretty";
+ import { storeToRefs } from "pinia";
+ import PauseIcon from "vue-material-design-icons/Pause.vue";
+ import PlayIcon from "vue-material-design-icons/Play.vue";
+ import { assets } from "~/assets/constants";
+ import mediaNotification, {
+     chromeMetaAdaptor,
+ } from "~/assets/mediaNotification";
+ import type { BaseProducer, NestedProducer } from "~/schema";
+ import { usePlayerStore } from "~/store";
 
-const store = usePlayerStore();
-const { playPause } = store;
-const { show, isPlaying, currentSong } = storeToRefs(store);
+ const store = usePlayerStore();
+ const { playPause } = store;
+ const { show, isPlaying, currentSong } = storeToRefs(store);
 
-const producers = computed(() =>
-  show.value !== undefined
-    ? show.value.producers.map((p: NestedProducer): BaseProducer => {
-        return p.producers_id;
-      })
-    : []
-);
+ const producers = computed(() =>
+     show.value !== undefined
+     ? show.value.producers.map((p: NestedProducer): BaseProducer => {
+         return p.producers_id;
+     })
+     : []
+ );
 
-const audio = ref<HTMLAudioElement | undefined>();
-const progressBar = ref<Element>();
+ const audio = ref<HTMLAudioElement | undefined>();
+ const progressBar = ref<Element>();
 
-type State = {
-  loading: boolean;
-  ms: number;
-  max: number;
-  skipping: boolean;
-};
+ type State = {
+     loading: boolean;
+     ms: number;
+     max: number;
+     skipping: boolean;
+ };
 
-const state = reactive<State>({
-  loading: false,
-  ms: 0,
-  max: 0,
-  skipping: false,
-});
+ const state = reactive<State>({
+     loading: false,
+     ms: 0,
+     max: 0,
+     skipping: false,
+ });
 
-const audioSource = computed(() => {
-  if (!show.value) return "";
-  
-  if (show.value.live) {
-    return show.value.link || "";
-  }
-  
-  return show.value.audio?.id ? assets + show.value.audio.id : "";
-});
+ const audioSource = computed(() => {
+     if (!show.value) return "";
+     
+     if (show.value.live) {
+         return show.value.link || "";
+     }
+     
+     return show.value.audio?.id ? assets + show.value.audio.id : "";
+ });
 
-const formattedTime = computed(() =>
-  duration(state.ms, "seconds").format("H:mm:ss")
-);
+ const formattedTime = computed(() =>
+     duration(state.ms, "seconds").format("H:mm:ss")
+ );
 
-const length = computed(() => duration(state.max, "seconds").format("H:mm:ss"));
+ const length = computed(() => duration(state.max, "seconds").format("H:mm:ss"));
 
-watch<typeof show.value>(show, (val: typeof show.value) => {
-  if (val) mediaNotification(chromeMetaAdaptor(val));
-});
+ watch<typeof show.value>(show, (val: typeof show.value) => {
+     if (val) mediaNotification(chromeMetaAdaptor(val));
+ });
 
-watch(isPlaying, (val, oldVal) => {
-  if (audio.value && val != oldVal) {
-    audio.value[val ? "play" : "pause"]();
-    audio.value.addEventListener("canplaythrough", () => {
-      if (isPlaying && audio.value) audio.value.play();
-    });
-  }
-});
+ // Helper to generate the current live URL avoiding cache retention
+ const getLiveStreamUrl = (baseUrl: string) => {
+     if (!baseUrl) return "";
+     const separator = baseUrl.includes("?") ? "&" : "?";
+     return `${baseUrl}${separator}_t=${Date.now()}`;
+ };
 
-onMounted(() => {
-  document.addEventListener("keydown", (event) => {
-    if (event.key == " ") {
-      event.preventDefault();
-      playPause();
-    } else if (
-      !show.value?.live &&
-      Array.from(Array(10))
-        .map((a, i) => i)
-        .includes(Number(event.key))
-    ) {
-      timeChange({ target: { value: (state.max * Number(event.key)) / 10 } });
-    }
-  });
-});
+ const audioSource = computed(() => {
+     if (!show.value) return "";
+     
+     if (show.value.live) {
+         return getLiveStreamUrl(show.value.link || "");
+     }
+     
+     return show.value.audio?.id ? assets + show.value.audio.id : "";
+ });
 
-const timeChange = ({ target: { value } }: any) => {
-  if (audio.value) audio.value.currentTime = value;
-  state.skipping = false;
-};
+ // Manage playback transition specifically for live streams
+ watch(isPlaying, async (playing, wasPlaying) => {
+     if (!audio.value || playing === wasPlaying) return;
 
-const dragChange = ({ target: { value } }: any) => {
-  state.ms = Number(value);
-};
+     if (playing) {
+         if (show.value?.live && show.value.link) {
+             // 1. Force a fresh stream endpoint
+             audio.value.src = getLiveStreamUrl(show.value.link);
+             // 2. Clear old buffer data
+             audio.value.load();
+         }
+         try {
+             await audio.value.play();
+         } catch (err) {
+             console.error("Playback failed or interrupted:", err);
+         }
+     } else {
+         audio.value.pause();
+         if (show.value?.live) {
+             // 3. Sever connection immediately on pause to prevent background buffering
+             audio.value.src = "";
+             audio.value.load();
+         }
+     }
+ });
 
-const volumeChange = ({ target: { value } }: any) => {
-  if (audio.value) audio.value.volume = value;
-};
+ const handleStreamError = () => {
+     if (show.value?.live && isPlaying.value && audio.value) {
+         state.loading = true;
+         setTimeout(() => {
+             if (audio.value && show.value?.link) {
+                 audio.value.src = getLiveStreamUrl(show.value.link);
+                 audio.value.load();
+                 audio.value.play().catch(console.error);
+             }
+         }, 2000);
+     }
+ };
+
+ onMounted(() => {
+     document.addEventListener("keydown", (event) => {
+         if (event.key == " ") {
+             event.preventDefault();
+             playPause();
+         } else if (
+             !show.value?.live &&
+             Array.from(Array(10))
+                  .map((a, i) => i)
+                  .includes(Number(event.key))
+         ) {
+             timeChange({ target: { value: (state.max * Number(event.key)) / 10 } });
+         }
+     });
+ });
+
+ const timeChange = ({ target: { value } }: any) => {
+     if (audio.value) audio.value.currentTime = value;
+     state.skipping = false;
+ };
+
+ const dragChange = ({ target: { value } }: any) => {
+     state.ms = Number(value);
+ };
+
+ const volumeChange = ({ target: { value } }: any) => {
+     if (audio.value) audio.value.volume = value;
+ };
 </script>
 
 <style scoped>
