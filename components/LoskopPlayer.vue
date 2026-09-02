@@ -132,11 +132,12 @@
      if (!show.value) return "";
      
      if (show.value.live) {
-         return show.value.link || "";
+         return getLiveStreamUrl(show.value.link || "");
      }
      
      return show.value.audio?.id ? assets + show.value.audio.id : "";
  });
+
 
  const formattedTime = computed(() =>
      duration(state.ms, "seconds").format("H:mm:ss")
@@ -155,15 +156,6 @@
      return `${baseUrl}${separator}_t=${Date.now()}`;
  };
 
- const audioSource = computed(() => {
-     if (!show.value) return "";
-     
-     if (show.value.live) {
-         return getLiveStreamUrl(show.value.link || "");
-     }
-     
-     return show.value.audio?.id ? assets + show.value.audio.id : "";
- });
 
  // Manage playback transition specifically for live streams
  watch(isPlaying, async (playing, wasPlaying) => {
