@@ -175,11 +175,6 @@
          }
      } else {
          audio.value.pause();
-         if (show.value?.live) {
-             // 3. Sever connection immediately on pause to prevent background buffering
-             audio.value.src = "";
-             audio.value.load();
-         }
      }
  });
 
