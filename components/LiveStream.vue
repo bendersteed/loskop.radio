@@ -128,10 +128,10 @@
  .artwork {
      aspect-ratio: 1/1;
      overflow: hidden;
-     width: 50%;
+     width: 45%;
      float: left;
      border: var(--border-width) solid var(--text-color);
-     margin-right: calc(2 * var(--standard-spacing));
+     margin-right: calc(4 * var(--standard-spacing));
      margin-bottom: calc(2 * var(--standard-spacing));
  }
 
