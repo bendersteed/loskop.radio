@@ -175,6 +175,8 @@
      justify-content: space-between;
      flex-direction: column;
      flex: 1;
+     width: 50%;
+     margin: 0 calc(4 * var(--standard-spacing));
  }
 
  .info .on-air {
@@ -188,7 +190,6 @@
      letter-spacing: 0;
      text-wrap: auto;
      text-wrap-style: pretty;
-     margin: 5px 0;
      line-height: 1.5;
  }
 
@@ -200,7 +201,7 @@
 
  .recent-tracks {
      width: 100%;
-     margin-top: calc(2 * var(--standard-spacing));
+     margin-top: calc(8 * var(--standard-spacing));
      padding-top: var(--standard-spacing);
  }
 
@@ -259,9 +260,8 @@
 
      .artwork {
          width: 100%;
-         max-width: 350px;
-         float: none;
-         margin: var(--standard-spacing) 0;
+         margin-right: 0;
+         margin-bottom: var(--standard-spacing);
      }
 
      .infoContainer {
@@ -269,6 +269,7 @@
      }
 
      .playerContainer {
+         margin-top: var(--standard-spacing);
          margin-bottom: var(--standard-spacing);
      }
  }

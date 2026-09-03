@@ -56,40 +56,40 @@
 </template>
 
 <script setup lang="ts">
-import { format } from "date-fns";
-import { duration } from "duration-pretty";
-import { computed } from "vue";
-import FileOutlineIcon from "vue-material-design-icons/FileOutline.vue";
-import PauseIcon from "vue-material-design-icons/Pause.vue";
-import PlayIcon from "vue-material-design-icons/Play.vue";
-import { assets } from "~/assets/constants";
-import { imageFallback } from "~/assets/helpers";
-import type { BaseProducer, NestedProducer, Show } from "~/schema";
-import { usePlayerStore } from "~/store";
+ import { format } from "date-fns";
+ import { duration } from "duration-pretty";
+ import { computed } from "vue";
+ import FileOutlineIcon from "vue-material-design-icons/FileOutline.vue";
+ import PauseIcon from "vue-material-design-icons/Pause.vue";
+ import PlayIcon from "vue-material-design-icons/Play.vue";
+ import { assets } from "~/assets/constants";
+ import { imageFallback } from "~/assets/helpers";
+ import type { BaseProducer, NestedProducer, Show } from "~/schema";
+ import { usePlayerStore } from "~/store";
 
-const imageParams =
-  "?" +
-  new URLSearchParams({
-    width: "700",
-  }).toString();
+ const imageParams =
+     "?" +
+     new URLSearchParams({
+         width: "700",
+     }).toString();
 
-const { playPause, isThisPlaying } = usePlayerStore();
+ const { playPause, isThisPlaying } = usePlayerStore();
 
-const { show } = defineProps<{ show: Show }>();
+ const { show } = defineProps<{ show: Show }>();
 
-const producers = computed(() =>
-  show.producers.map((p: NestedProducer): BaseProducer => {
-    return p.producers_id;
-  })
-);
+ const producers = computed(() =>
+     show.producers.map((p: NestedProducer): BaseProducer => {
+         return p.producers_id;
+     })
+ );
 
-const formatedDuration = computed(() => {
-  const dur = show?.audio?.duration || 0;
-  return duration(dur, "seconds").format("mm' ss''");
-});
+ const formatedDuration = computed(() => {
+     const dur = show?.audio?.duration || 0;
+     return duration(dur, "seconds").format("mm' ss''");
+ });
 
-const formatDate = (string: string): string =>
-  string && format(new Date(string), "dd.MM.yyyy");
+ const formatDate = (string: string): string =>
+     string && format(new Date(string), "dd.MM.yyyy");
 </script>
 
 <style scoped>
@@ -171,7 +171,6 @@ const formatDate = (string: string): string =>
      letter-spacing: 0;
      text-wrap: auto;
      text-wrap-style: pretty;
-     margin: 5px 0;
      line-height: 1.5;
  }
 
@@ -181,6 +180,7 @@ const formatDate = (string: string): string =>
      flex-direction: column;
      flex: 1;
      width: 50%;
+     margin: 0 calc(4 * var(--standard-spacing));
  }
 
  .producers {
@@ -210,8 +210,8 @@ const formatDate = (string: string): string =>
 
      .artwork {
          width: 100%;
-         max-width: 350px;
-         margin: var(--standard-spacing) 0;
+         margin-right: 0;
+         margin-bottom: var(--standard-spacing);
      }
 
      .infoContainer {
@@ -219,6 +219,7 @@ const formatDate = (string: string): string =>
      }
 
      .playerContainer {
+         margin-top: var(--standard-spacing);
          margin-bottom: var(--standard-spacing);
      }
  }
