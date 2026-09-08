@@ -18,16 +18,11 @@
               </button>
             </div>
             <div class="info">
-                <div class="on-air">
-                    ON AIR
-                    <span class="blink">
-                        <div class="dot" />
-                    </span>
+                <div class="live-artist">
+                    {{ nowPlaying?.now_playing?.song?.artist || 'Loskop Radio' }}
                 </div>
                 <h1 class="live-title">
                     {{ nowPlaying?.now_playing?.song?.title || 'Loading Stream...' }}
-                    -
-                    {{ nowPlaying?.now_playing?.song?.artist || 'Loskop Radio' }}
                 </h1>
             </div>
           </div>
@@ -35,10 +30,10 @@
         <div class="recent-tracks" v-if="nowPlaying?.song_history?.length">
           <h3>history</h3>
           <ul class="history">
-            <li v-for="(track, index) in nowPlaying.song_history.slice(0, 5)" :key="index">
-                <span class="title">{{ track.song.title }}</span>
-                -
-                <span v-if="track.song.artist"> {{ track.song.artist}}</span>
+              <li v-for="(track, index) in nowPlaying.song_history.slice(0, 3)" :key="index">
+                  <span v-if="track.song.artist"> {{ track.song.artist}}</span>
+                  -
+                  <span class="title">{{ track.song.title }}</span>
             </li>
           </ul>
         </div>
@@ -176,20 +171,22 @@
      flex-direction: column;
      flex: 1;
      width: 50%;
-     margin: 0 calc(4 * var(--standard-spacing));
- }
-
- .info .on-air {
-     font-size: 1.4em;
-     font-weigh: 800;
+     margin: 0 calc(2 * var(--standard-spacing));
  }
 
  .info h1 {
      font-size: 1.2rem;
-     font-weight: 600;
+     font-weight: 500;
      letter-spacing: 0;
      text-wrap: auto;
      text-wrap-style: pretty;
+     line-height: 1.5;
+ }
+
+ .info .live-artist {
+     font-size: 1.2rem;
+     font-weight: 400;
+     letter-spacing: 0;
      line-height: 1.5;
  }
 
@@ -201,8 +198,10 @@
 
  .recent-tracks {
      width: 100%;
-     margin-top: calc(8 * var(--standard-spacing));
+     margin-top: calc(2 * var(--standard-spacing));
      padding-top: var(--standard-spacing);
+     font-size: 1rem;
+     margin-bottom: 0.5rem;
  }
 
  .recent-tracks h3 {
@@ -211,7 +210,7 @@
  }
 
  .history {
-     list-style-type: disc;
+     list-style-type: square;
      list-style-position: inside;
      padding: 0;
      margin: 0;
