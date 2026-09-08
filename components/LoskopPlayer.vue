@@ -468,7 +468,6 @@
 
      .title {
          letter-spacing: 0.1vw;
-         grid-column: 2 / span 2;
          justify-self: center;
      }
 
