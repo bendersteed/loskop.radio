@@ -180,7 +180,7 @@
      flex-direction: column;
      flex: 1;
      width: 50%;
-     margin: 0 calc(4 * var(--standard-spacing));
+     margin: 0 calc(2 * var(--standard-spacing));
  }
 
  .producers {
@@ -199,6 +199,7 @@
      font-size: 1rem;
      line-height: 1.5rem;
      letter-spacing: 0;
+     margin-top: calc(2 * var(--standard-spacing));
  }
 
  @media screen and (max-width: 650px) {
@@ -219,7 +220,7 @@
      }
 
      .playerContainer {
-         margin-top: var(--standard-spacing);
+         margin-top: calc(2 * var(--standard-spacing));
          margin-bottom: var(--standard-spacing);
      }
  }

@@ -17,7 +17,6 @@
           </h2>
         </NuxtLink>
         <div class="producers">
-          by
           <NuxtLink
             v-for="producer in producers"
             :key="producer.id"
@@ -89,17 +88,19 @@ a {
   border: var(--border-width) solid var(--text-color);
 }
 
-.title {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  font-size: 1.1rem;
-  letter-spacing: 0.03rem;
-  font-weight: 500;
-}
+ .title {
+     white-space: nowrap;
+     text-overflow: ellipsis;
+     overflow: hidden;
+     font-size: 1.1rem;
+     letter-spacing: 0.03rem;
+     font-weight: 500;
+     width: 250px;
+ }
 
 .producers {
-  letter-spacing: 0.03rem;
+    letter-spacing: 0.03rem;
+    font-size: 1rem;
 }
 
 .los {
@@ -125,12 +126,16 @@ a {
   padding: 0;
 }
 
-.info {
-  border: var(--border-width) solid var(--text-color);
-  padding: var(--standard-spacing);
-  margin-right: var(--standard-spacing);
-  overflow: hidden;
-  flex: 1;
-  background-color: var(--main-color);
-}
+ .info {
+     border: var(--border-width) solid var(--text-color);
+     padding: var(--standard-spacing);
+     margin-right: var(--standard-spacing);
+     overflow: hidden;
+     flex: 1;
+     background-color: var(--main-color);
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     gap: 2px;
+ }
 </style>
