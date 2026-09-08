@@ -98,7 +98,7 @@ h1 {
 }
 
 .title {
-  width: 300px;
+  width: 230px;
 }
 
 .genSpace {
@@ -134,7 +134,7 @@ nav {
 }
 
 nav a {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
 
 nav > *:not(:last-child) {
