@@ -44,7 +44,6 @@
       </template>
     </div>
     <div v-if="!show.live" class="producers">
-      by
       <NuxtLink
         v-for="producer in producers"
         :key="producer.id"
@@ -286,6 +285,7 @@
      grid-row: 2 / span 2;
      grid-column: 3 / span 1;
      width: 100%; /* Changed from calc(100vw - 390px) so it safely fills its grid cell and shrinks */
+     margin-left: calc(2 * var(--standard-spacing));
  }
 
  hr {
@@ -365,7 +365,7 @@
      grid-column: 3 / span 1;
      text-align: right;
      justify-self: flex-end;
-     font-size: 0.8rem;
+     font-size: 0.9rem;
      font-weight: 300;
      letter-spacing: 0.07em;
  }
@@ -478,10 +478,6 @@
 
      .meta {
          grid-template-columns: [play] 60px [info] auto [progress] 1fr;
-     }
-
-     .progressBar.live {
-         display: none;
      }
  }
 
