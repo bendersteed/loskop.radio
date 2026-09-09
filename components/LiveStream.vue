@@ -13,8 +13,8 @@
           <div class="player">
             <div class="playContainer">
               <button class="play" @click="playPause(liveShow)">
-                <PlayIcon v-if="!isThisPlaying(liveShow.id)" :size="60"></PlayIcon>
-                <PauseIcon v-else :size="60"></PauseIcon>
+                  <PlayIcon v-if="!isThisPlaying(liveShow.id)" fillColor="#000000" :size="60"></PlayIcon>
+                  <PauseIcon v-else fillColor="#000000" :size="60"></PauseIcon>
               </button>
             </div>
             <div class="info">

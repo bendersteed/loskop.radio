@@ -27,8 +27,8 @@
         </div>
       </div>
       <button class="play" @click="playPause(show)">
-        <PlayIcon v-if="!isThisPlaying(show.id)" :size="50"></PlayIcon>
-        <PauseIcon v-else :size="50"></PauseIcon>
+        <PlayIcon v-if="!isThisPlaying(show.id)" fillColor="#000000" :size="50"></PlayIcon>
+        <PauseIcon v-else fillColor="#000000" :size="50"></PauseIcon>
       </button>
     </div>
   </li>
