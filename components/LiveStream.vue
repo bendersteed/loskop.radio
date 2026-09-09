@@ -204,8 +204,8 @@
  }
 
  .recent-tracks h3 {
-     font-size: 1.2rem;
-     margin-bottom: 1rem;
+     font-size: 1rem;
+     margin-bottom: 0.5rem;
  }
 
  .history {
@@ -216,9 +216,9 @@
  }
 
  .recent-tracks li {
-     font-size: 0.9rem;
-     margin-bottom: 1rem;
-     letter-spacing: 0.04em;
+     font-size: 0.98rem;
+     margin-bottom: 0.5rem;
+     letter-spacing: 0.03em;
  }
 
  .artist {
@@ -259,7 +259,7 @@
      .artwork {
          width: 100%;
          margin-right: 0;
-         margin-bottom: var(--standard-spacing);
+         margin-bottom: calc(2 * var(--standard-spacing));
      }
 
      .infoContainer {
