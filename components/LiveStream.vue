@@ -31,7 +31,7 @@
           <h3>history</h3>
           <ul class="history">
               <li v-for="(track, index) in nowPlaying.song_history.slice(0, 3)" :key="index">
-                  <span v-if="track.song.artist"> {{ track.song.artist}} -</span>
+                  <span v-if="track.song.artist"> {{ track.song.artist}} - </span>
                   <span class="title">{{ track.song.title }}</span>
             </li>
           </ul>
