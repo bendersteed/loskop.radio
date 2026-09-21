@@ -28,7 +28,6 @@
               {{ show.title }}
             </h1>
             <div class="producers">
-              by
               <NuxtLink
                 v-for="producer in producers"
                 :key="producer.id"
