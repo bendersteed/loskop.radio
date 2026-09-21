@@ -17,7 +17,15 @@ export const baseProducerSchema = z.object({
 });
 
 export const producerSchema: any = baseProducerSchema.extend({
-  shows: z.lazy(() => z.object({ shows_id: baseShowSchema }).array()),
+  shows: z.lazy(() =>
+    z
+      .object({ shows_id: baseShowSchema.nullable() })
+      .array()
+      // Filter out any array items where shows_id is null
+      .transform((showsArray) =>
+        showsArray.filter((item) => item.shows_id !== null),
+      ),
+  ),
 });
 
 export const producersSchema = producerSchema.array();
@@ -41,7 +49,7 @@ export const producerQueries = {
         avatar {
           id
         }
-        shows {
+        shows(filter: { shows_id: { _nnull: true } }) {
           shows_id {
             id
             slug
