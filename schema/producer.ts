@@ -49,7 +49,7 @@ export const producerQueries = {
         avatar {
           id
         }
-        shows {
+        shows(filter: { shows_id: { status: { _neq: "archived" } } }) {
           shows_id {
             id
             slug
