@@ -33,7 +33,7 @@
               <li v-for="(track, index) in nowPlaying.song_history.slice(0, 3)" :key="index">
                   <span v-if="track.song.artist"> {{ track.song.artist}} - </span>
                   <span class="title">{{ track.song.title }}</span>
-            </li>
+              </li>
           </ul>
         </div>
       </div>
@@ -50,7 +50,7 @@
  import { usePlayerStore } from "~/store";
 
  const STREAM_URL = "https://loazuracast.stinpriza.eu/listen/loskop/radio.mp3"; 
- const DEFAULT_IMAGE = "/loskop_face.jpg"; // Fallback image
+ const DEFAULT_IMAGE = "/radio-crawler.webp"; // Fallback image
  const { playPause, isThisPlaying, setCurrentSong } = usePlayerStore();
 
  const nowPlaying = ref<any>(null);
