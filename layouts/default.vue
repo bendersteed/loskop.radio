@@ -98,7 +98,7 @@ h1 {
 }
 
 .title {
-  width: 230px;
+  width: 245px;
 }
 
 .genSpace {

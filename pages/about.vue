@@ -62,210 +62,216 @@
 </template>
 
 <script setup lang="ts">
-import { assets } from "~/assets/constants";
-import { imageFallback, removeFileExtension } from "~/assets/helpers";
-import type { About, Home } from "~/schema";
-import { aboutQuery, aboutSchema, homeSchema } from "~/schema";
+ import { assets } from "~/assets/constants";
+ import { imageFallback, removeFileExtension } from "~/assets/helpers";
+ import type { About, Home } from "~/schema";
+ import { aboutQuery, aboutSchema, homeSchema } from "~/schema";
 
-const info = {
-  mail: "radioloskop@gmail.com",
-  paypal: "https://www.paypal.com/paypalme/kedimura",
-  facebook: "https://www.facebook.com/loskop.radio",
-  mixcloud: "https://www.mixcloud.com/loskopradio/",
-  instagram: "https://www.instagram.com/loskop.radio/",
-  developer: {
-    slug: "dimitriaatos",
-    first_name: "Dimitri Aatos",
-    last_name: "Ellinas",
-  },
-  subStatus: "SUBSCRIBE!",
-};
+ const info = {
+     mail: "radioloskop@gmail.com",
+     paypal: "https://www.paypal.com/paypalme/kedimura",
+     facebook: "https://www.facebook.com/loskop.radio",
+     mixcloud: "https://www.mixcloud.com/loskopradio/",
+     instagram: "https://www.instagram.com/loskop.radio/",
+     developer: {
+         slug: "dimitriaatos",
+         first_name: "Dimitri Aatos",
+         last_name: "Ellinas",
+     },
+     subStatus: "SUBSCRIBE!",
+ };
 
-const { mail, paypal, facebook, instagram, mixcloud, developer } = info;
+ const { mail, paypal, facebook, instagram, mixcloud, developer } = info;
 
-const { $directus } = useNuxtApp();
-const { data } = await useAsyncData("about", () => {
-  return $directus.query<{ about: About; home: Home }>(aboutQuery);
-});
+ const { $directus } = useNuxtApp();
+ const { data } = await useAsyncData("about", () => {
+     return $directus.query<{ about: About; home: Home }>(aboutQuery);
+ });
 
-const about = aboutSchema.parse(data.value?.about);
-const home = homeSchema.parse(data.value?.home);
+ const about = aboutSchema.parse(data.value?.about);
+ const home = homeSchema.parse(data.value?.home);
 
-useHead({
-  title: "About Loskop",
-  meta: [
-    {
-      property: "og:image",
-      content: imageFallback(
-        assets + removeFileExtension(home.image?.filename_disk || "")
-      ),
-    },
-  ],
-});
+ useHead({
+     title: "About Loskop",
+     meta: [
+         {
+             property: "og:image",
+             content: imageFallback(
+                 assets + removeFileExtension(home.image?.filename_disk || "")
+             ),
+         },
+     ],
+ });
 </script>
 
 <style scoped>
-.container {
-  display: flex;
-  height: 80%;
-}
+ .container {
+     display: flex;
+     height: 80%;
+ }
 
-.subscribe > * {
-  width: 100%;
-}
+ .subscribe > * {
+     width: 100%;
+ }
 
-.contact > *:not(:last-child, .scissors) {
-  margin-bottom: 50px;
-}
+ .contact{
+     margin-top: 85px;
+     padding: 30px;
+ }
 
-.container > *:not(:last-child, .contactContainer) {
-  margin-right: calc(5 * var(--standard-spacing));
-}
+ .contact > *:not(:last-child, .scissors) {
+     margin-top: 85px;
+     margin-bottom: 35px;
+ }
 
-.contactCpace {
-  width: 300px;
-}
+ .container > *:not(:last-child, .contactContainer) {
+     margin-right: calc(5 * var(--standard-spacing));
+ }
 
-.contactContainer {
-  width: 300px;
+ .contactCpace {
+     width: 300px;
+ }
 
-  /* right: 5vw; */
-  top: 0;
-  bottom: 0;
-  display: flex;
-  align-items: flex-start;
-  position: fixed;
-  right: calc(50vw - (1000px / 2));
-}
+ .contactContainer {
+     width: 300px;
 
-.social {
-  display: flex;
-  justify-content: center;
-  width: 80%;
-}
+     /* right: 5vw; */
+     top: 0;
+     bottom: 0;
+     display: flex;
+     align-items: flex-start;
+     position: fixed;
+     right: calc(50vw - (1000px / 2));
+ }
 
-.facebook {
-  margin-right: 10px;
-}
+ .social {
+     display: flex;
+     justify-content: center;
+     width: 80%;
+ }
 
-.contact {
-  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23333' stroke-width='3' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
-  padding: 30px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  position: relative;
-  margin-top: 112px;
-}
+ .facebook {
+     margin-right: 10px;
+ }
 
-.contactSpace {
-  display: block;
-  width: 300px;
-}
+ .contact {
+     background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23333' stroke-width='3' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+     padding: 30px 20px;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     width: 100%;
+     position: relative;
+     margin-top: 112px;
+ }
 
-.scissors {
-  position: absolute;
-  top: -9px;
-  left: 10px;
-  width: 30px;
-}
+ .contactSpace {
+     display: block;
+     width: 300px;
+ }
 
-a {
-  text-decoration: none;
-}
+ .scissors {
+     position: absolute;
+     top: -9px;
+     left: 10px;
+     width: 30px;
+ }
 
-.subscribe > *:not(:last-child) {
-  margin-bottom: var(--standard-spacing);
-}
+ a {
+     text-decoration: none;
+ }
 
-.subscribe,
-.button,
-a {
-  width: 80%;
-}
+ .subscribe > *:not(:last-child) {
+     margin-bottom: var(--standard-spacing);
+ }
 
-.credits,
-.credits a {
-  font-size: 0.75rem;
-  text-align: center;
-}
+ .subscribe,
+ .button,
+ a {
+     width: 80%;
+ }
 
-.submit {
-  border-radius: 0;
-  -webkit-border-radius: 0;
-  -webkit-appearance: none;
-}
+ .credits,
+ .credits a {
+     font-size: 0.75rem;
+     text-align: center;
+ }
 
-.button,
-.submit {
-  background-color: var(--text-color);
-  color: var(--bg-color);
-}
+ .submit {
+     border-radius: 0;
+     -webkit-border-radius: 0;
+     -webkit-appearance: none;
+ }
 
-.button,
-.submit,
-.email {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: var(--standard-spacing);
-  white-space: nowrap;
-  text-align: center;
-  height: 45px;
-  letter-spacing: 0.05rem;
-  font-weight: 500;
-}
+ .button,
+ .submit {
+     background-color: var(--text-color);
+     color: var(--bg-color);
+ }
 
-.email {
-  box-shadow: none;
-  border-color: black;
-}
+ .button,
+ .submit,
+ .email {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     padding: var(--standard-spacing);
+     white-space: nowrap;
+     text-align: center;
+     height: 45px;
+     letter-spacing: 0.05rem;
+     font-weight: 500;
+ }
 
-.small {
-  width: 45px;
-}
+ .email {
+     box-shadow: none;
+     border-color: black;
+ }
 
-.description {
-  flex: 1;
-}
+ .small {
+     width: 45px;
+ }
 
-@media screen and (max-width: 1100px) {
-  .contactContainer {
-    position: initial;
-  }
+ .description {
+     flex: 1;
+ }
 
-  .contact {
-    margin: 0;
-  }
+ @media screen and (max-width: 1100px) {
+     .contactContainer {
+         position: initial;
+     }
 
-  .contactSpace {
-    display: none;
-  }
-}
+     .contact {
+         margin: 0;
+     }
 
-@media screen and (max-width: 800px) {
-  .container {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  }
+     .contactSpace {
+         display: none;
+     }
+ }
 
-  .contactContainer {
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: min(300px, 100%);
-  }
+ @media screen and (max-width: 800px) {
+     .container {
+         display: flex;
+         align-items: center;
+         flex-direction: column;
+     }
 
-  .contact > *:not(:last-child, .scissors) {
-    margin-bottom: 10px;
-  }
+     .contactContainer {
+         justify-content: center;
+         display: flex;
+         align-items: center;
+         flex-direction: column;
+         width: min(300px, 100%);
+     }
 
-  .container > *:not(:last-child, .contactContainer) {
-    margin-right: 0;
-    margin-bottom: calc(var(--standard-spacing) * 5);
-  }
-}
+     .contact > *:not(:last-child, .scissors) {
+         margin-bottom: 10px;
+     }
+
+     .container > *:not(:last-child, .contactContainer) {
+         margin-right: 0;
+         margin-bottom: calc(var(--standard-spacing) * 5);
+     }
+ }
 </style>

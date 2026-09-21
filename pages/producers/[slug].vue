@@ -25,113 +25,116 @@
 </template>
 
 <script setup lang="ts">
-import { assets } from "~/assets/constants";
-import { imageFallback } from "~/assets/helpers";
-import type { NestedShow, Producer } from "~/schema";
-import { producerQueries, producerSchema } from "~/schema";
+ import { assets } from "~/assets/constants";
+ import { imageFallback } from "~/assets/helpers";
+ import type { NestedShow, Producer } from "~/schema";
+ import { producerQueries, producerSchema } from "~/schema";
 
-const route = useRoute();
+ const route = useRoute();
 
-const { $directus } = useNuxtApp();
+ const { $directus } = useNuxtApp();
 
-const { data } = await useAsyncData(`producer/${route.params.slug}`, () => {
-  return $directus.query<{  producers: Producer[] }>(
-    producerQueries.producer,
-    {
-      slug: route.params.slug,
-    }
-  );
-});
+ const { data } = await useAsyncData(`producer/${route.params.slug}`, () => {
+     return $directus.query<{  producers: Producer[] }>(
+         producerQueries.producer,
+         {
+             slug: route.params.slug,
+         }
+     );
+ });
 
-const producer = producerSchema.parse(data.value?.producers?.[0]);
+ const producer = producerSchema.parse(data.value?.producers?.[0]);
 
-useHead({
-  title: `${producer?.first_name || ""} ${producer?.last_name || ""} - Loskop`,
-  meta: [
-    {
-      property: "og:image",
-      content: assets + producer?.avatar.id,
-    },
-  ],
-});
+ useHead({
+     title: `${producer?.first_name || ""} ${producer?.last_name || ""} - Loskop`,
+     meta: [
+         {
+             property: "og:image",
+             content: assets + producer?.avatar.id,
+         },
+     ],
+ });
 </script>
 
 <style scoped>
-main {
-  width: 100%;
-  word-wrap: break-word;
-  max-width: 1000px;
-}
+ main {
+     width: 100%;
+     word-wrap: break-word;
+     max-width: 1000px;
+ }
 
-ul {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(min(calc(180px + 10vmin), 100%), 1fr)
-  );
-  grid-gap: calc(var(--standard-spacing) * 2);
-}
+ ul {
+     list-style: none;
+     display: grid;
+     grid-template-columns: repeat(
+         auto-fill,
+         minmax(min(calc(180px + 10vmin), 100%), 1fr)
+     );
+     grid-gap: calc(var(--standard-spacing) * 2);
+ }
 
-ul > li {
-  justify-self: center;
-}
+ ul > li {
+     justify-self: center;
+ }
 
-.avatar {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  float: left;
-  margin-right: calc(3 * var(--standard-spacing));
-  margin-bottom: calc(3 * var(--standard-spacing));
-}
+ .avatar {
+     width: 200px;
+     height: 200px;
+     border-radius: 50%;
+     float: left;
+     margin-right: calc(3 * var(--standard-spacing));
+     margin-bottom: calc(3 * var(--standard-spacing));
+     shape-outside: circle(45%);
+     shape-margin: 15px;
+ }
 
-h1 {
-  text-align: left;
-  margin-bottom: 1rem;
-}
+ h1 {
+     text-align: left;
+     margin-bottom: 1rem;
+ }
 
-.producer {
-  clear: left;
-  overflow: auto;
-}
+ .producer {
+     margin-top: 10px;
+     clear: left;
+     overflow: auto;
+ }
 
-.shows {
-  margin: var(--standard-spacing) auto;
-  clear: left;
-}
+ .shows {
+     margin: var(--standard-spacing) auto;
+     clear: left;
+ }
 
-.divider {
-  display: flex;
-  align-items: flex-start;
-  text-align: left;
-  font-size: 1.2rem;
-  margin: 20px 0;
-  font-weight: 200;
-}
+ .divider {
+     display: flex;
+     align-items: flex-start;
+     text-align: left;
+     font-size: 1.2rem;
+     margin: 20px 0;
+     font-weight: 200;
+ }
 
-.divider::after {
-  content: "";
-  flex-grow: 1;
-  height: var(--border-width);
-  background: var(--text-color);
-  min-width: 20px;
-  margin: auto;
-  margin-left: var(--standard-spacing);
-}
+ .divider::after {
+     content: "";
+     flex-grow: 1;
+     height: var(--border-width);
+     background: var(--text-color);
+     min-width: 20px;
+     margin: auto;
+     margin-left: var(--standard-spacing);
+ }
 
-@media screen and (max-width: 650px) {
-  h1 {
-    white-space: normal;
-    text-align: center;
-    font-size: 1.1rem;
-  }
+ @media screen and (max-width: 650px) {
+     h1 {
+         white-space: normal;
+         text-align: center;
+         font-size: 1.1rem;
+     }
 
-  .avatar {
-    display: block;
-    float: none;
-    margin: auto;
-    margin-bottom: 1rem;
-  }
-}
+     .avatar {
+         display: block;
+         float: none;
+         margin: auto;
+         margin-bottom: 1rem;
+     }
+ }
 </style>

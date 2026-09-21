@@ -115,7 +115,7 @@
      float: left;
      border: var(--border-width) solid var(--text-color);
      margin-right: calc(4 * var(--standard-spacing));
-     margin-bottom: calc(2 * var(--standard-spacing));
+     margin-bottom: 0;
  }
 
  .playerContainer {
@@ -140,7 +140,7 @@
 
  .playContainer {
      aspect-ratio: 1/1;
-     width: 70px;
+     width: 75px;
      border: var(--border-width) solid var(--text-color);
      margin-right: var(--standard-spacing);
  }
@@ -166,7 +166,7 @@
  }
 
  .info h1 {
-     font-size: 1.2rem;
+     font-size: 1.1rem;
      font-weight: 600;
      letter-spacing: 0;
      text-wrap: auto;
@@ -181,6 +181,7 @@
      flex: 1;
      width: 50%;
      margin: 0 calc(2 * var(--standard-spacing));
+     padding: var(--standard-spacing) calc(2 * var(--standard-spacing));
  }
 
  .producers {
