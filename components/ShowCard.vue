@@ -128,7 +128,7 @@ a {
 
  .info {
      border: var(--border-width) solid var(--text-color);
-     padding: var(--standard-spacing);
+     padding: var(--standard-spacing) calc(2 * var(--standard-spacing));
      margin-right: var(--standard-spacing);
      overflow: hidden;
      flex: 1;
