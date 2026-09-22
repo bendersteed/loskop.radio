@@ -120,7 +120,7 @@
  }
 
  .contact > *:not(:last-child, .scissors) {
-     margin-top: 85px;
+     /* margin-top: 85px; */
      margin-bottom: 35px;
  }
 
