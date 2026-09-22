@@ -114,11 +114,6 @@
      width: 100%;
  }
 
- .contact{
-     margin-top: 85px;
-     padding: 30px;
- }
-
  .contact > *:not(:last-child, .scissors) {
      /* margin-top: 85px; */
      margin-bottom: 35px;
@@ -156,7 +151,8 @@
 
  .contact {
      background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23333' stroke-width='3' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
-     padding: 30px 20px;
+     margin-top: 85px;
+     padding: 30px;
      display: flex;
      flex-direction: column;
      align-items: center;
