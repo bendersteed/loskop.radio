@@ -158,7 +158,6 @@
      align-items: center;
      width: 100%;
      position: relative;
-     margin-top: 112px;
  }
 
  .contactSpace {
