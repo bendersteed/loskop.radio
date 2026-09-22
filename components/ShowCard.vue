@@ -95,7 +95,7 @@ a {
      font-size: 1.1rem;
      letter-spacing: 0.03rem;
      font-weight: 500;
-     width: 250px;
+     width: 230px;
  }
 
 .producers {
