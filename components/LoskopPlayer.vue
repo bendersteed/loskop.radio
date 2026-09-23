@@ -12,13 +12,7 @@
             @canplaythrough="state.loading = false"
             @play="
             () => {
-                if (show.value?.isDefaultPlaceholder && !isPlaying.value) {
-                    audio.value?.pause();
-                }
-
-                if (!isPlaying.value) {
-                    playPause();
-                }
+                isPlaying || playPause();
                 state.loading = false;
             }
             "
