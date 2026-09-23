@@ -1,6 +1,10 @@
 <template>
   <div class="container">
-    <article class="description" v-html="about?.description" />
+      <article class="description" v-html="about?.description" />
+      <div class="attribution">made by
+          <NuxtLink :to="`/producers/kedimoura`">
+              KeDiMouRa
+          </NuxtLink></div>
     <div class="contactContainer">
       <div class="contact">
         <img src="./../assets/scissors.png" class="scissors" />
