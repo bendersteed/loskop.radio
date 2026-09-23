@@ -158,19 +158,14 @@
 
  const handlePlayPauseClick = async (e?: Event) => {
      if (e) e.stopPropagation();
-     console.log("handlePlayPauseClick executed!");
-
      const isPlaceholder = Boolean(show.value?.isDefaultPlaceholder);
-
      if (isPlaceholder && show.value) {
          show.value.isDefaultPlaceholder = false;
      }
 
-     // Toggle playback
      playPause();
 
      if (isPlaceholder) {
-         console.log("Navigating to /on-air...");
          await navigateTo("/on-air");
      }
  };
