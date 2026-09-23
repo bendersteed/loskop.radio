@@ -156,17 +156,23 @@
  };
 
 
- const handlePlayPauseClick = () => {
-     if (show.value?.isDefaultPlaceholder) {
+ const handlePlayPauseClick = async (e?: Event) => {
+     if (e) e.stopPropagation();
+     console.log("handlePlayPauseClick executed!");
+
+     const isPlaceholder = Boolean(show.value?.isDefaultPlaceholder);
+
+     if (isPlaceholder && show.value) {
          show.value.isDefaultPlaceholder = false;
-
-         console.log("Navigating..")
-         return navigateTo("/on-air/");
-
-         playPause();
      }
 
+     // Toggle playback
      playPause();
+
+     if (isPlaceholder) {
+         console.log("Navigating to /on-air...");
+         await navigateTo("/on-air");
+     }
  };
 
  // Manage playback transition specifically for live streams
