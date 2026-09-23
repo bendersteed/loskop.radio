@@ -156,17 +156,22 @@
  };
 
 
- const handlePlayPauseClick = async () => {
+ const router = useRouter();
+
+ const handlePlayPauseClick = () => {
      if (show.value?.isDefaultPlaceholder) {
-         // Mark as no longer a placeholder so future clicks act normally
          show.value.isDefaultPlaceholder = false;
 
+         // Trigger state change without blocking navigation
          playPause();
 
-         // Route to the On Air page
-         await navigateTo("/on-air");
+         // Navigate immediately
+         router.push("/on-air").catch((err) => {
+             console.error("Navigation failed:", err);
+         });
          return;
      }
+
      playPause();
  };
 
