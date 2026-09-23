@@ -95,7 +95,7 @@ a {
      font-size: 1.1rem;
      letter-spacing: 0.03rem;
      font-weight: 500;
-     width: 250px;
+     width: 230px;
  }
 
 .producers {
@@ -128,7 +128,7 @@ a {
 
  .info {
      border: var(--border-width) solid var(--text-color);
-     padding: var(--standard-spacing);
+     padding: var(--standard-spacing) calc(2 * var(--standard-spacing));
      margin-right: var(--standard-spacing);
      overflow: hidden;
      flex: 1;
