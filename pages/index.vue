@@ -1,6 +1,6 @@
 <template>
     <main>
-        <img class="title" src="/radio-crawler.webp" alt="" />
+        <img class="logo" src="/radio-crawler.webp" alt="" />
     </main>
     <div class="space" />
 </template>
@@ -90,9 +90,11 @@ main {
     padding-y: 4em;
  }
 
-img {
-  width: 40vh;
-}
+ .logo {
+     display: block;
+     margin: 0 auto;
+     margin-top: 5rem;
+ } 
 
 @media screen and (max-width: 650px) {
   main {
