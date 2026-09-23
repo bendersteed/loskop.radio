@@ -206,6 +206,7 @@
 
  onMounted(() => {
      if (show.value?.isDefaultPlaceholder) {
+         console.log("default placeholder");
          state.loading = false;
      }
      
