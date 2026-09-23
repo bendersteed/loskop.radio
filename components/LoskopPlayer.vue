@@ -166,7 +166,7 @@
          playPause();
 
          // Navigate immediately
-         router.push("/on-air").catch((err) => {
+         router.push("/on-air/").catch((err) => {
              console.error("Navigation failed:", err);
          });
          return;
