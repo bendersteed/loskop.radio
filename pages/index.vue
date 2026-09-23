@@ -93,7 +93,7 @@ main {
  .logo {
      display: block;
      margin: 0 auto;
-     margin-top: 5rem;
+     margin-top: 2rem;
      width: 50%;
  } 
 
