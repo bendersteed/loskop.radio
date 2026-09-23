@@ -45,6 +45,7 @@
              id: "live-stream",
              title: "Live Broadcast",
              live: true,
+             slug: "",
              link: STREAM_URL, 
              description: "Live stream from Loskop Radio",
              date: new Date().toISOString(),
