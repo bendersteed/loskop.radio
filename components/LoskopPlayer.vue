@@ -156,8 +156,6 @@
  };
 
 
- const router = useRouter();
-
  const handlePlayPauseClick = () => {
      if (show.value?.isDefaultPlaceholder) {
          show.value.isDefaultPlaceholder = false;
@@ -166,10 +164,7 @@
          playPause();
 
          // Navigate immediately
-         router.push("/on-air/").catch((err) => {
-             console.error("Navigation failed:", err);
-         });
-         return;
+         return navigateTo("/on-air/");
      }
 
      playPause();
