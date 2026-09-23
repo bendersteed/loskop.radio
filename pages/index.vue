@@ -53,7 +53,7 @@
              artwork: {
                  id: "", 
              },
-         } as uknown as Show;
+         } as Show;
      }
  });
 </script>
