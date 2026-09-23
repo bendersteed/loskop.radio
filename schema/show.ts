@@ -37,6 +37,7 @@ const withoutSourceSchema = z
         id: z.string(),
       })
       .nullish(),
+    isDefaultPlaceholder: z.boolean().optional(),
   })
   .extend({
     producers: z.lazy(() =>

@@ -22,7 +22,7 @@
             @error="handleStreamError"
         />
     <hr :class="{ live: show.live }" />
-    <button class="playPause" @click="playPause()">
+    <button class="playPause" @click="handlePlayPauseClick()">
       <div v-if="state.loading" class="loading" />
       <PlayIcon v-else-if="!isPlaying" fillColor="#000000" :size="50"></PlayIcon>
       <PauseIcon v-else fillColor="#000000" :size="50"></PauseIcon>
@@ -156,6 +156,20 @@
  };
 
 
+ const handlePlayPauseClick = async () => {
+     if (show.value?.isDefaultPlaceholder) {
+         // Mark as no longer a placeholder so future clicks act normally
+         show.value.isDefaultPlaceholder = false;
+
+         playPause();
+
+         // Route to the On Air page
+         await navigateTo("/on-air");
+         return;
+     }
+     playPause();
+ };
+
  // Manage playback transition specifically for live streams
  watch(isPlaying, async (playing, wasPlaying) => {
      if (!audio.value || playing === wasPlaying) return;
@@ -194,7 +208,7 @@
      document.addEventListener("keydown", (event) => {
          if (event.key == " ") {
              event.preventDefault();
-             playPause();
+             handlePlayPauseClick();
          } else if (
              !show.value?.live &&
              Array.from(Array(10))

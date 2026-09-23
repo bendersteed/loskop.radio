@@ -1,38 +1,61 @@
 <template>
     <main>
-        <LiveStream />
+        
     </main>
     <div class="space" />
 </template>
 
 <script setup lang="ts">
-import { assets } from "~/assets/constants";
-import { imageFallback, removeFileExtension } from "~/assets/helpers";
-import type { Home } from "~/schema";
-import { homeQuery, homeSchema } from "~/schema";
-import LiveStream from "~/components/LiveStream.vue"; // Ensure correct path
+ import { assets } from "~/assets/constants";
+ import { imageFallback, removeFileExtension } from "~/assets/helpers";
+ import type { Home } from "~/schema";
+ import { homeQuery, homeSchema } from "~/schema";
+ import LiveStream from "~/components/LiveStream.vue"; // Ensure correct path
+ import { usePlayerStore } from '~/store';
 
-const pToSpan = (html: string): string => {
-  return html?.replace(/<\/p>\n<p>/g, "<br/>")?.replace(/(<\/?)p>/g, "$1span>");
-};
+ const pToSpan = (html: string): string => {
+     return html?.replace(/<\/p>\n<p>/g, "<br/>")?.replace(/(<\/?)p>/g, "$1span>");
+ };
 
-const { $directus } = useNuxtApp();
-const { data } = await useAsyncData("home", () => {
-  return $directus.query<{  home: Home }>(homeQuery);
-});
+ const { $directus } = useNuxtApp();
+ const { data } = await useAsyncData("home", () => {
+     return $directus.query<{  home: Home }>(homeQuery);
+ });
 
-const home = homeSchema.parse(data.value?.home);
+ const home = homeSchema.parse(data.value?.home);
 
-useHead({
-  title: "Loskop Radio",
-  meta: [
-    {
-      property: "og:image",
-      name: "og:image",
-      content: "loskop_face.jpg",
-    },
-  ],
-});
+ useHead({
+     title: "Loskop Radio",
+     meta: [
+         {
+             property: "og:image",
+             name: "og:image",
+             content: "loskop_face.jpg",
+         },
+     ],
+ });
+
+ const store = usePlayerStore();
+ const STREAM_URL = "https://loazuracast.stinpriza.eu/listen/loskop/radio.mp3"; 
+
+ onMounted(() => {
+     // Only inject if no show is currently loaded or playing
+     if (!store.show) {
+         store.show = {
+             id: "live-stream",
+             title: "Live Broadcast",
+             live: true,
+             link: STREAM_URL, 
+             description: "Live stream from Loskop Radio",
+             date: new Date().toISOString(),
+             producers: [],
+             audio: null, 
+             artwork: {
+                 id: "", 
+             },
+         } as uknown as Show;
+     }
+ });
 </script>
 
 <style>
