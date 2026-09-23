@@ -94,6 +94,7 @@ main {
      display: block;
      margin: 0 auto;
      margin-top: 5rem;
+     width: 50%;
  } 
 
 @media screen and (max-width: 650px) {
@@ -105,6 +106,10 @@ main {
   img {
     width: 30vh;
     margin-bottom: 10px;
+  }
+
+  .logo {
+    width: 100%;
   }
 
   .content p {
