@@ -3,19 +3,14 @@
         <audio
             ref="audio"
             :autoplay="!show?.isDefaultPlaceholder"
-            :preload="show?.live ? 'none' : 'metadata'"
+            :preload="show?.isDefaultPlaceholder || show?.live ? 'none' : 'metadata'"
             crossorigin="anonymous"
             type="audio/mpeg"
             :src="audioSource"
-            @waiting="state.loading = true"
-            @loadstart="state.loading = true"
+            @waiting="if (!show?.isDefaultPlaceholder && isPlaying) state.loading = true;"
+            @loadstart="if (!show?.isDefaultPlaceholder && isPlaying) state.loading = true;"
             @canplaythrough="state.loading = false"
-            @play="
-            () => {
-                isPlaying || playPause();
-                state.loading = false;
-            }
-            "
+            @play="handlePlayEvent"
             @pause="isPlaying && playPause()"
             @timeupdate="if (!state.skipping && audio && !show?.live) state.ms = audio.currentTime;"
             @loadedmetadata="if (audio?.duration && !show?.live) state.max = audio.duration;"
@@ -158,9 +153,15 @@
 
  const handlePlayPauseClick = async (e?: Event) => {
      if (e) e.stopPropagation();
+
      const isPlaceholder = Boolean(show.value?.isDefaultPlaceholder);
+
      if (isPlaceholder && show.value) {
          show.value.isDefaultPlaceholder = false;
+     }
+
+     if (!isPlaying.value) {
+         state.loading = true;
      }
 
      playPause();
@@ -191,6 +192,19 @@
      }
  });
 
+ const handlePlayEvent = () => {
+     if (show.value?.isDefaultPlaceholder && !isPlaying.value) {
+         audio.value?.pause();
+         state.loading = false;
+         return;
+     }
+
+     if (!isPlaying.value) {
+         playPause();
+     }
+     state.loading = false;
+ };
+
  const handleStreamError = () => {
      if (show.value?.live && isPlaying.value && audio.value) {
          state.loading = true;
@@ -205,11 +219,6 @@
  };
 
  onMounted(() => {
-     if (show.value?.isDefaultPlaceholder) {
-         console.log("default placeholder");
-         state.loading = false;
-     }
-     
      document.addEventListener("keydown", (event) => {
          if (event.key == " ") {
              event.preventDefault();
