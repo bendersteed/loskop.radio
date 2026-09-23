@@ -2,8 +2,8 @@
     <div class="meta user-select-none" v-if="show !== undefined">
         <audio
             ref="audio"
-            autoplay
-            preload="metadata"
+            :autoplay="!show?.isDefaultPlaceholder"
+            :preload="show?.live ? 'none' : 'metadata'"
             crossorigin="anonymous"
             type="audio/mpeg"
             :src="audioSource"
@@ -12,7 +12,13 @@
             @canplaythrough="state.loading = false"
             @play="
             () => {
-                isPlaying || playPause();
+                if (show.value?.isDefaultPlaceholder && !isPlaying.value) {
+                    audio.value?.pause();
+                }
+
+                if (!isPlaying.value) {
+                    playPause();
+                }
                 state.loading = false;
             }
             "
