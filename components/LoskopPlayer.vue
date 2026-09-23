@@ -2,6 +2,7 @@
     <div class="meta user-select-none" v-if="show !== undefined">
         <audio
             ref="audio"
+            autoplay
             preload="metadata"
             crossorigin="anonymous"
             type="audio/mpeg"
