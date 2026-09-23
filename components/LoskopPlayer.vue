@@ -160,12 +160,10 @@
      if (show.value?.isDefaultPlaceholder) {
          show.value.isDefaultPlaceholder = false;
 
-         // Trigger state change without blocking navigation
-         playPause();
-
-         // Navigate immediately
          console.log("Navigating..")
          return navigateTo("/on-air/");
+
+         playPause();
      }
 
      playPause();
