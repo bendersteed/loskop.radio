@@ -1,68 +1,70 @@
 <template>
-  <div class="container">
-      <article class="description" v-html="about?.description" />
-      <div class="attribution">made by
-          <NuxtLink :to="`/producers/kedimoura`">
-              KeDiMouRa
-          </NuxtLink></div>
-    <div class="contactContainer">
-      <div class="contact">
-        <img src="./../assets/scissors.png" class="scissors" />
-        <a :href="'mailto:' + mail" class="button">CONTACT US</a>
-        <a :href="paypal" target="_blank" class="button">SUPPORT US</a>
-        <form
-          class="subscribe"
-          action="https://radio.us9.list-manage.com/subscribe/post?u=59db0d71d78ca57d2f7db9712&amp;id=f2f484aaf9&amp;f_id=00b1ffe3f0"
-          method="post"
-          id="mc-embedded-subscribe-form"
-          name="mc-embedded-subscribe-form"
-          target="_self"
-        >
-          <input
-            type="email"
-            name="EMAIL"
-            class="email"
-            placeholder="e-mail"
-            id="mce-EMAIL"
-            required
-          />
-          <div aria-hidden="true" style="position: absolute; left: -5000px">
-            /* real people should not fill this in and expect good things - do
-            not remove this or risk form bot signups */
-            <input
-              type="text"
-              name="b_59db0d71d78ca57d2f7db9712_f2f484aaf9"
-              tabindex="-1"
-              value=""
-            />
-          </div>
-          <input
-            type="submit"
-            name="subscribe"
-            id="mc-embedded-subscribe"
-            class="submit"
-            value="SUBSCRIBE!"
-          />
-        </form>
-        <div class="social">
-          <a :href="facebook" target="_blank" class="small button facebook"
-            >f</a
-          >
-          <a :href="instagram" target="_blank" class="small button facebook"
-            >i</a
-          >
+    <div class="container">
+        <div class="description-container">
+            <article class="description" v-html="about?.description" />
+            <div class="attribution">made by
+                <NuxtLink :to="`/producers/kedimoura`">
+                    KeDiMouRa
+                </NuxtLink></div>
         </div>
-        <div class="credits">
-          Developed by
-          <NuxtLink target="_blank" :to="`https://dimitriaatos.info`">
-            {{ developer.first_name }} {{ developer.last_name }}
-          </NuxtLink>
+        <div class="contactContainer">
+            <div class="contact">
+                <img src="./../assets/scissors.png" class="scissors" />
+                <a :href="'mailto:' + mail" class="button">CONTACT US</a>
+                <a :href="paypal" target="_blank" class="button">SUPPORT US</a>
+                <form
+                    class="subscribe"
+                    action="https://radio.us9.list-manage.com/subscribe/post?u=59db0d71d78ca57d2f7db9712&amp;id=f2f484aaf9&amp;f_id=00b1ffe3f0"
+                    method="post"
+                    id="mc-embedded-subscribe-form"
+                    name="mc-embedded-subscribe-form"
+                    target="_self"
+                >
+                    <input
+                        type="email"
+                        name="EMAIL"
+                        class="email"
+                        placeholder="e-mail"
+                        id="mce-EMAIL"
+                        required
+                    />
+                    <div aria-hidden="true" style="position: absolute; left: -5000px">
+                        /* real people should not fill this in and expect good things - do
+                        not remove this or risk form bot signups */
+                        <input
+                            type="text"
+                            name="b_59db0d71d78ca57d2f7db9712_f2f484aaf9"
+                            tabindex="-1"
+                            value=""
+                        />
+                    </div>
+                    <input
+                        type="submit"
+                        name="subscribe"
+                        id="mc-embedded-subscribe"
+                        class="submit"
+                        value="SUBSCRIBE!"
+                    />
+                </form>
+                <div class="social">
+                    <a :href="facebook" target="_blank" class="small button facebook"
+                    >f</a
+                      >
+                    <a :href="instagram" target="_blank" class="small button facebook"
+                    >i</a
+                      >
+                </div>
+                <div class="credits">
+                    Developed by
+                    <NuxtLink target="_blank" :to="`https://dimitriaatos.info`">
+                        {{ developer.first_name }} {{ developer.last_name }}
+                    </NuxtLink>
+                </div>
+            </div>
         </div>
-      </div>
+        <div class="contactSpace" />
     </div>
-    <div class="contactSpace" />
-  </div>
-  <div class="space" />
+    <div class="space" />
 </template>
 
 <script setup lang="ts">
@@ -176,7 +178,7 @@
      width: 30px;
  }
 
- a {
+ .contact a {
      text-decoration: none;
  }
 
@@ -231,7 +233,7 @@
      width: 45px;
  }
 
- .description {
+ .description-container {
      flex: 1;
  }
 
