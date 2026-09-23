@@ -54,6 +54,7 @@
              artwork: {
                  id: "", 
              },
+             isDefaultPlaceholder: true
          } as Show;
      }
  });
