@@ -110,6 +110,7 @@ main {
 
   .logo {
     width: 100%;
+    margin-top: 5rem;
   }
 
   .content p {
