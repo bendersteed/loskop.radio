@@ -13,7 +13,7 @@ const sourceSchema = z.discriminatedUnion("live", [
     live: z.literal(true),
     link: z.string().url(),
     audio: audioSchema.nullish(),
-    date: audioSchema.nullish(),
+    date: z.string().nullish(),
   }),
   z.object({
     live: z.literal(false),
