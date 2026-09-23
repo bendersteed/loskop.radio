@@ -164,6 +164,7 @@
          playPause();
 
          // Navigate immediately
+         console.log("Navigating..")
          return navigateTo("/on-air/");
      }
 
