@@ -205,6 +205,10 @@
  };
 
  onMounted(() => {
+     if (show.value?.isDefaultPlaceholder) {
+         state.loading = false;
+     }
+     
      document.addEventListener("keydown", (event) => {
          if (event.key == " ") {
              event.preventDefault();
