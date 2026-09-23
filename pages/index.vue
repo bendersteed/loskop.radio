@@ -1,6 +1,6 @@
 <template>
     <main>
-        
+        <img class="title" src="/radio-crawler.webp" alt="" />
     </main>
     <div class="space" />
 </template>
