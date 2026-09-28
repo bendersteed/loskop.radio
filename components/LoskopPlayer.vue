@@ -9,6 +9,8 @@
             :src="audioSource"
             @waiting="if (!show?.isDefaultPlaceholder && isPlaying) state.loading = true;"
             @loadstart="if (!show?.isDefaultPlaceholder && isPlaying) state.loading = true;"
+            @canplay="state.loading = false"
+            @playing="state.loading = false"
             @canplaythrough="state.loading = false"
             @play="handlePlayEvent"
             @pause="isPlaying && playPause()"
@@ -16,7 +18,7 @@
             @loadedmetadata="if (audio?.duration && !show?.live) state.max = audio.duration;"
             @error="handleStreamError"
         />
-    <hr :class="{ live: show.live }" />
+        <hr :class="{ live: show.live }" />
     <button class="playPause" @click="handlePlayPauseClick()">
       <div v-if="state.loading" class="loading" />
       <PlayIcon v-else-if="!isPlaying" fillColor="#000000" :size="50"></PlayIcon>
@@ -177,18 +179,24 @@
 
      if (playing) {
          if (show.value?.live && show.value.link) {
-             // 1. Force a fresh stream endpoint
-             audio.value.src = getLiveStreamUrl(show.value.link);
-             // 2. Clear old buffer data
-             audio.value.load();
+             const targetUrl = getLiveStreamUrl(show.value.link);
+             
+             if (!audio.value.src || audio.value.src === window.location.href) {
+                 audio.value.src = targetUrl;
+                 audio.value.load();
+             }
          }
+
          try {
              await audio.value.play();
+             state.loading = false; 
          } catch (err) {
              console.error("Playback failed or interrupted:", err);
+             state.loading = false;
          }
      } else {
          audio.value.pause();
+         state.loading = false;
      }
  });
 
