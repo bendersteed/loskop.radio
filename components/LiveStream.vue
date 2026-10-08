@@ -42,34 +42,31 @@
   </div>
 </template>
 
-<script setup lang="ts">
+ <script setup lang="ts">
  import { ref, computed, onMounted, onBeforeUnmount } from "vue";
  import PauseIcon from "vue-material-design-icons/Pause.vue";
  import PlayIcon from "vue-material-design-icons/Play.vue";
  import type { Show } from "~/schema";
  import { usePlayerStore } from "~/store";
 
- const STREAM_URL = "https://loazuracast.stinpriza.eu/listen/loskop/radio.mp3"; 
- const DEFAULT_IMAGE = "/radio-crawler.webp"; // Fallback image
+ const STREAM_URL = "https://loazuracast.stinpriza.eu/listen/loskop/radio.mp3";
+ const DEFAULT_IMAGE = "/radio-crawler.webp";
  const { playPause, isThisPlaying, setCurrentSong } = usePlayerStore();
 
  const nowPlaying = ref<any>(null);
- let pollingInterval: ReturnType<typeof setInterval> | null = null;
+ let sse: EventSource | null = null;
 
- // Construct a pseudo-Show object so it plays nicely with your existing usePlayerStore
  const liveShow = computed(() => {
      return {
          id: "live-stream",
          title: "Live Broadcast",
          live: true,
-         link: STREAM_URL, 
+         link: STREAM_URL,
          description: "Live stream from Loskop Radio",
          date: new Date().toISOString(),
          producers: [],
-         audio: null, 
-         artwork: {
-             id: "", 
-         },
+         audio: null,
+         artwork: { id: "" },
      } as unknown as Show;
  });
 
@@ -77,34 +74,69 @@
      return nowPlaying.value?.now_playing?.song?.art || DEFAULT_IMAGE;
  });
 
- const fetchNowPlaying = async () => {
-     try {
-         const response = await fetch('/api/nowplaying');
-         if (response.ok) {
-             nowPlaying.value = await response.json();
-             
-             // Push song info directly into the global store
-             const activeSong = nowPlaying.value?.now_playing?.song;
-             if (activeSong) {
-                 setCurrentSong({
-                     title: activeSong.title,
-                     artist: activeSong.artist,
-                 });
-             }
-         }
-     } catch (error) {
-         console.error("Failed to fetch from internal API:", error);
+ const updateTrackMetadata = (data: any) => {
+     if (!data) return;
+     nowPlaying.value = data;
+
+     const activeSong = data.now_playing?.song;
+     if (activeSong) {
+         setCurrentSong({
+             title: activeSong.title,
+             artist: activeSong.artist,
+         });
      }
  };
 
- onMounted(() => {
-     fetchNowPlaying();
-     // Poll every 15 seconds to keep "Recently Played" and "Now Playing" updated
-     pollingInterval = setInterval(fetchNowPlaying, 15000);
+ const connectAzuraCastSSE = () => {
+     // Centrifugo subscription parameter for station 'loskop'
+     const connectParams = JSON.stringify({
+         subs: {
+             "station:loskop": { recover: true }
+         }
+     });
+
+     const url = `https://loazuracast.stinpriza.eu/api/live/nowplaying/sse?cf_connect=${encodeURIComponent(connectParams)}`;
+     sse = new EventSource(url);
+
+     sse.onmessage = (event) => {
+         try {
+             const payload = JSON.parse(event.data);
+
+             // Centrifugo wraps events inside 'pub' channel messages
+             if (payload?.pub?.data?.np) {
+                 updateTrackMetadata(payload.pub.data.np);
+             } else if (payload?.now_playing) {
+                 // Fallback for raw formats
+                 updateTrackMetadata(payload);
+             }
+         } catch (err) {
+             console.error("Error parsing AzuraCast SSE frame:", err);
+         }
+     };
+
+     sse.onerror = (err) => {
+         console.warn("AzuraCast SSE interrupted, auto-reconnecting...", err);
+     };
+ };
+
+ onMounted(async () => {
+     // 1. Initial snapshot via REST so the UI is populated instantly on load
+     try {
+         const initial = await $fetch("https://loazuracast.stinpriza.eu/api/nowplaying/1");
+         updateTrackMetadata(initial);
+     } catch (e) {
+         console.warn("Could not fetch initial snapshot:", e);
+     }
+
+     // 2. Open real-time SSE pipe
+     connectAzuraCastSSE();
  });
 
  onBeforeUnmount(() => {
-     if (pollingInterval) clearInterval(pollingInterval);
+     if (sse) {
+         sse.close();
+         sse = null;
+     }
  });
 </script>
 
