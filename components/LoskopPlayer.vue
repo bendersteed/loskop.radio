@@ -176,17 +176,13 @@
  // Manage playback transition specifically for live streams
  watch(isPlaying, async (playing, wasPlaying) => {
      if (!audio.value || playing === wasPlaying) return;
-     console.log({"playing": playing,
-                  "wasPlaying": wasPlaying});
+
      if (playing) {
          if (show.value?.live && show.value.link) {
-             console.log(show.value);
              const targetUrl = getLiveStreamUrl(show.value.link);
-             
-             if (!audio.value.src || audio.value.src === window.location.href) {
-                 audio.value.src = targetUrl;
-                 audio.value.load();
-             }
+             audio.value.src = targetUrl;
+             audio.value.load();
+
          }
 
          try {
