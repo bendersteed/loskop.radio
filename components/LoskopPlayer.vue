@@ -176,7 +176,8 @@
  // Manage playback transition specifically for live streams
  watch(isPlaying, async (playing, wasPlaying) => {
      if (!audio.value || playing === wasPlaying) return;
-
+     console.log({"playing": playing,
+                  "wasPlaying": wasPlaying});
      if (playing) {
          if (show.value?.live && show.value.link) {
              const targetUrl = getLiveStreamUrl(show.value.link);
