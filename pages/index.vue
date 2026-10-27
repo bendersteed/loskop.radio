@@ -36,7 +36,7 @@
  });
 
  const store = usePlayerStore();
- const STREAM_URL = "https://loazuracast.stinpriza.eu/listen/loskop/radio.mp3"; 
+ const STREAM_URL = "https://azuracast.loskop.radio/listen/loskop/radio.mp3"; 
 
  onMounted(() => {
      // Only inject if no show is currently loaded or playing

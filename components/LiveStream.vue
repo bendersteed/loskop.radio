@@ -49,7 +49,7 @@
  import type { Show } from "~/schema";
  import { usePlayerStore } from "~/store";
 
- const STREAM_URL = "https://loazuracast.stinpriza.eu/listen/loskop/radio.mp3";
+ const STREAM_URL = "https://azuracast.loskop.radio/listen/loskop/radio.mp3";
  const DEFAULT_IMAGE = "/radio-crawler.webp";
  const { playPause, isThisPlaying, setCurrentSong } = usePlayerStore();
 
@@ -95,7 +95,7 @@
          }
      });
 
-     const url = `https://loazuracast.stinpriza.eu/api/live/nowplaying/sse?cf_connect=${encodeURIComponent(connectParams)}`;
+     const url = `https://azuracast.loskop.radio/api/live/nowplaying/sse?cf_connect=${encodeURIComponent(connectParams)}`;
      sse = new EventSource(url);
 
      sse.onmessage = (event) => {
@@ -122,7 +122,7 @@
  onMounted(async () => {
      // 1. Initial snapshot via REST so the UI is populated instantly on load
      try {
-         const initial = await $fetch("https://loazuracast.stinpriza.eu/api/nowplaying/1");
+         const initial = await $fetch("https://azuracast.loskop.radio/api/nowplaying/1");
          updateTrackMetadata(initial);
      } catch (e) {
          console.warn("Could not fetch initial snapshot:", e);
